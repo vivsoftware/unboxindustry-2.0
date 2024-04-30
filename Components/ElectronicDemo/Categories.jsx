@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { getStrapiMedia } from '../../Utils/media';
 import Image from 'next/image';
 import Link from 'next/link';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
+import { getStrapiMedia } from '../../Utils/media';
 import SkeletonLoader from '../Element/SkeletonLoader';
+const LazyImg = lazy(() => import('next/image'));
 
 const Categories = ({ category }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +33,9 @@ const Categories = ({ category }) => {
                   {isLoading ? (
                     <SkeletonLoader />
                   ) : (
-                    <Image
+                    <Suspense fallback={<div>Loading....</div>}>
+
+                    <LazyImg
                       src={getStrapiMedia(categoryItem.attributes.category_icon)}
                       alt={categoryItem.attributes.category_name}
                       width={200} 
@@ -40,6 +43,7 @@ const Categories = ({ category }) => {
                       style={{  marginTop: '10px',boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2)', backgroundColor:'#fff' }}
                       className='categorycard-image'
                     />
+                    </Suspense>
                   )}
                   <h3 className='mt-3'style={{color:'#FF8400',fontWeight:'normal'}}>{categoryItem.attributes.category_name}</h3>
                 </Link>
