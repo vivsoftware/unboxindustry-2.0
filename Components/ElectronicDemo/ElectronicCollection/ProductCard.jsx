@@ -1,18 +1,13 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import { useSelector } from 'react-redux';
-import { ElectronicProductSlider } from '../../../Data/SliderSettingsData';
-import AddToCartProduct from '../../Element/AddToCart';
-import ModelViewProduct from '../../Element/ModelViewProduct';
-import CompareProducts from '../../Element/CompareProducts';
-import AddToWishList from '../../Element/AddToWishList';
 import Link from 'next/link';
-import Img from '../../Element/Images';
-import SkeletonLoader from '../../Element/SkeletonLoader';
-import { getStrapiMedia } from '../../../Utils/media';
+import React, { Fragment, Suspense, lazy, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import Slider from 'react-slick';
 import { auth } from '../../../Config/firebase';
-import PlaceholderImage from './PlaceholderImage';
-import Image from 'next/image';
+import { ElectronicProductSlider } from '../../../Data/SliderSettingsData';
+import { getStrapiMedia } from '../../../Utils/media';
+import SkeletonLoader from '../../Element/SkeletonLoader';
+const LazyImg = lazy(() => import('next/image'));
+
 const ProductCard = ({ ProductFilter }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,13 +50,16 @@ const ProductCard = ({ ProductFilter }) => {
                         {isLoading ? (
                           <SkeletonLoader />
                         ) : (
-                          <Image
+                          <Suspense fallback={<div>Loading....</div>}>
+
+                          <LazyImg
                             src={getStrapiMedia(elem.attributes.image)}
                             width={200}
                             height={200}
                             className='bg-img'
                             alt={elem.attributes.product_name}
                           />
+                          </Suspense>
                         )}
                       </div>
                     </Link>

@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"..\\\\Layout\\\\Element\\\\NavBar.jsx -> ./Categoriesdynamic\":{\"id\":\"..\\\\Layout\\\\Element\\\\NavBar.jsx -> ./Categoriesdynamic\",\"files\":[\"static/chunks/Layout_Element_Categoriesdynamic_js.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"
