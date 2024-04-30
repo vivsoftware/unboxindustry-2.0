@@ -1510,17 +1510,6 @@ module.exports = require("react");
 
 /***/ }),
 
-/***/ "react-bootstrap/Button":
-/*!*****************************************!*\
-  !*** external "react-bootstrap/Button" ***!
-  \*****************************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("react-bootstrap/Button");
-
-/***/ }),
-
 /***/ "react-bootstrap/Card":
 /*!***************************************!*\
   !*** external "react-bootstrap/Card" ***!
@@ -1562,17 +1551,6 @@ module.exports = require("react-bootstrap/Col");
 
 "use strict";
 module.exports = require("react-bootstrap/Container");
-
-/***/ }),
-
-/***/ "react-bootstrap/Form":
-/*!***************************************!*\
-  !*** external "react-bootstrap/Form" ***!
-  \***************************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("react-bootstrap/Form");
 
 /***/ }),
 

@@ -1,17 +1,17 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import { Row } from 'react-bootstrap';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Link from 'next/link';
-import { Form, Button, Col } from 'react-bootstrap';
-import { FaPhoneAlt } from "react-icons/fa";
-import { useState, useEffect, useRef } from 'react';
-import { getStrapiMedia } from '../../Utils/media';
-import Image from 'next/image';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Navbar from 'react-bootstrap/Navbar';
+import { FaPhoneAlt } from "react-icons/fa";
+import { getStrapiMedia } from '../../Utils/media';
+
 // import Categoriesdynamic from './Categoriesdynamic';
 const Dyamicloadcat = dynamic(() => import('./Categoriesdynamic'),
   {
@@ -91,46 +91,48 @@ const NavBar = ({ brands, categories, industries }) => {
                     onMouseLeave={hideDropdown}>
                     <div className="d-none d-xl-block d-md-none" style={{ marginTop: '0px' }}>
                       <div className="dropdown-columns">
-                        <div className="column">
-                          <Link href="/shop">
-                            <NavDropdown.Item href="/shop" style={{ color: 'black' }}>
-                              All Products
-                            </NavDropdown.Item>
-                          </Link>
-
-                       
-                          {categories?.slice(0, 6).map((category) => (
-
-                            <Link href={`/category/${category.id}-${category.attributes.category_slug}`} key={category.id}>
-                              <NavDropdown.Item href={`/category/${category.id}-${category.attributes.category_slug}`} >
-
-                                {category.attributes.category_name}
-                              </NavDropdown.Item>
-                            </Link>
-                          ))}
-
-                        </div>
-                        <div className="column">
-                          {categories?.slice(6, 13).map((category) => (
-                            <Link href={`/category/${category.id}-${category.attributes.category_slug}`} key={category.id}>
-                              <NavDropdown.Item href={`/category/${category.id}-${category.attributes.category_slug}`}>
-                                {category.attributes.category_name}
-                              </NavDropdown.Item>
-                            </Link>
-                          ))}
-                        </div>
-                        <div className="column">
-                          {categories?.slice(13).map((category, index) => (
-                            <Link href={`/category/${category.id}-${category.attributes.category_slug}`} key={category.id}>
-                              <NavDropdown.Item
-                                href={`/category/${category.id}-${category.attributes.category_slug}`}
-                                style={index === 0 ? { marginTop: 0 } : {}}
-                              >
-                                {category.attributes.category_name}
-                              </NavDropdown.Item>
-                            </Link>
-                          ))}
-                        </div>
+                        {!categories ? <Box sx={{ width: '100%' }}>
+                          <LinearProgress />
+                        </Box>
+                          : (
+                            <>
+                              <div className="column">
+                                <Link href="/shop">
+                                  <NavDropdown.Item href="/shop" style={{ color: 'black' }}>
+                                    All Products
+                                  </NavDropdown.Item>
+                                </Link>
+                                <div className="column">
+                                  {categories?.slice(6, 13).map((category) => (
+                                    <Link href={`/category/${category.id}-${category.attributes.category_slug}`} key={category.id}>
+                                      <NavDropdown.Item href={`/category/${category.id}-${category.attributes.category_slug}`}>
+                                        {category.attributes.category_name}
+                                      </NavDropdown.Item>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        {!categories ? <Box sx={{ width: '100%' }}>
+                          <LinearProgress />
+                        </Box>
+                          : (
+                            <>
+                              <div className="column">
+                                {categories?.slice(13).map((category, index) => (
+                                  <Link href={`/category/${category.id}-${category.attributes.category_slug}`} key={category.id}>
+                                    <NavDropdown.Item
+                                      href={`/category/${category.id}-${category.attributes.category_slug}`}
+                                      style={index === 0 ? { marginTop: 0 } : {}}
+                                    >
+                                      {category.attributes.category_name}
+                                    </NavDropdown.Item>
+                                  </Link>
+                                ))}
+                              </div>
+                            </>
+                          )}
                       </div>
                     </div>
                     <div className="d-block d-xl-none d-md-block">
@@ -170,6 +172,7 @@ const NavBar = ({ brands, categories, industries }) => {
                             </Link>
                           ))}
                         </div>
+
                         <div className="column">
                           {brands?.slice(6, 13).map((brand) => (
                             <Link href={`/brand/${brand.id}-${brand.attributes.brand_slug}`} key={brand.id}>
@@ -265,10 +268,13 @@ const NavBar = ({ brands, categories, industries }) => {
 
             </Container>
           </Navbar>
+
         </div>
+
         <div className='col-xl-2 col-md-4 col-sm-6 phone-number'>
           <span style={{ color: '#FF8400', marginTop: '13px' }}> <FaPhoneAlt className='me-1' />0124 414 8999</span>
         </div>
+
       </div>
 
     </div>
