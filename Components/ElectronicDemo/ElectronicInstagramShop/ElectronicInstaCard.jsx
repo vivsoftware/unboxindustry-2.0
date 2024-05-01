@@ -55,9 +55,8 @@ const ElectronicInstaCard = () => {
                         </a> */}
                       </div>
                       <a className='text-center bg-size'>
-                        <Img src={getStrapiMedia(elem.attributes.image)} className='bg-img' alt={elem.attributes.product_name} />
-
-
+                        {/* adjust size of image accordingly */}
+                        <Image src={getStrapiMedia(elem.attributes.image)} className='bg-img' alt={elem.attributes.product_name} width={500} height={500}/> 
                       </a>
                     </div>
                     <div className='insta-hover text-center'>

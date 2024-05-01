@@ -275,7 +275,7 @@ function Home(props) {
         <Enquire />
         <FlowerSubscribe />
 
-        {showStartModel && userDe === null ? <StartModel /> : null}
+        {/* {showStartModel && userDe === null ? <StartModel /> : null} */}
       </Layout4>
     </>
   );

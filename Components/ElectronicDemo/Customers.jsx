@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import { lazy,Suspense, useEffect, useState } from 'react';
 import Slider from 'react-slick'
 import { Col, Container, Row } from 'reactstrap';
 import { FlowerBrandSlider } from '../../Data/SliderSettingsData';
 import { fetchAPI } from '../../Utils/api';
 import { getStrapiMedia } from '../../Utils/media';
-import Image from 'next/image';
+// import Image from 'next/image';
+
 import Link from 'next/link';
 import SkeletonLoader from '../Element/SkeletonLoader';
+
+const LazyImg = lazy(() => import('next/image'));
 const Customers = () => {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
@@ -43,8 +46,17 @@ const Customers = () => {
                                                     {isLoading?(
                                                         <SkeletonLoader/>
                                                     ):(
-                                                        <Image src={getStrapiMedia(elem.attributes.company_logo)} className='img-fluid' width={200} height={100} alt={elem.attributes.company_name} />
-
+                                                        // <Image src={getStrapiMedia(elem.attributes.company_logo)} className='img-fluid' width={200} height={100} alt={elem.attributes.company_name} />
+                                                        <Suspense fallback={<div>Loading Company Logo....</div>}>
+                                                            <LazyImg 
+                                                            src={getStrapiMedia(elem.attributes.company_logo)}
+                                                            className='img-fluid'
+                                                            width={200}
+                                                            height={100}
+                                                            alt={elem.attributes.company_name}
+                                                        />
+                                                        </Suspense>
+                                                        
                                                     )}
                                                     {/* </Link> */}
                                                 </div>
