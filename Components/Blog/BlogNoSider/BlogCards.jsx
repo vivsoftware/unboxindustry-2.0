@@ -1,15 +1,36 @@
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Modal from '@mui/material/Modal';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import Slider from 'react-slick';
+import { Card, CardBody, Col, Row } from 'reactstrap';
 import { fetchAPI } from '../../../Utils/api';
 import { getStrapiMedia } from '../../../Utils/media';
-import { Card, CardBody, Col, Row } from 'reactstrap';
 import Img from '../../Element/Images';
-import React, { useState, useEffect } from 'react';
-import Slider from 'react-slick';
 import SkeletonLoader from '../../Element/SkeletonLoader';
-import Head from 'next/head';
 
 const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
   const [data, setData] = useState(null);
+  const [load, setload] = useState(false);
+  const router = useRouter();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
   useEffect(() => {
     async function fetchData() {
       const limit = 6;
@@ -42,7 +63,12 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
     arrows: false
   };
 
-  console.log("pageNumber", pageNumber);
+  const handleLoad= (elem)=>{
+    setload(true)
+    handleOpen()
+    router.push(`/blog/${elem.id}-${elem.attributes.blog_slug}`);
+
+  }
   return (
     <>
 
@@ -51,17 +77,24 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
           {data.map((elem) => (
             <div key={elem.id} className="slider-item">
               <div className="row">
-                <div className='col-4'>
-                  <Link href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}>
-                    <Img src={getStrapiMedia(elem.attributes.image)} className='card-img-top' alt={elem.attributes.title} height={500} width={400} />
-                  </Link>
+    
+      <Link onClick={() => handleLoad(elem) } href="">
+
+{/* <Link onClick={handleLoad=()=>  {elem}} href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}> */}
+  <Img  src={getStrapiMedia(elem.attributes.image)} className='card-img-top' alt={elem.attributes.title} height={500} width={400}  />
+
+</Link>
+
+                {/* <div className='col-4'>
+               
+                
                 </div>
                 <div className='col-6' style={{ marginTop: '100px' }}>
                   <Link href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}>
                     <h2 className='headingstyle' style={{ textTransform: 'none', color: 'black', textAlign: 'left' }}>{elem.attributes.title}</h2>
                     <p className='mt-3' style={{ color: '#888 !important', fontFamily: '"Poppins", sans-serif' }} dangerouslySetInnerHTML={{ __html: `${elem.attributes.short_description}` }}></p>
                   </Link>
-                </div>
+                </div> */}
                 <div className='col-2'></div>
               </div>
             </div>
@@ -74,7 +107,8 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
             <div key={elem.id} className="slider-item">
               <div className="row">
                 <div className='col-12'>
-                  <Link href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}>
+                  { load}
+                  <Link onClick={() => handleLoad(elem) } href="">
                     <Img src={getStrapiMedia(elem.attributes.image)} className='card-img-top mt-2' height={500} width={400} alt={elem.attributes.title} />
                   </Link>
                 </div>
@@ -95,7 +129,7 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
             <Col lg='4' md='6' key={elem.id}>
               <Card className='blog-categority'>
                 {/* <Link href={'/blog/blog_details'} className='blog-img'> */}
-                <Link href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}>
+                <Link onClick={() => handleLoad(elem) } href="">
                   <Img src={getStrapiMedia(elem.attributes.image)} className='img-fluid' alt={elem.attributes.title} />
                 </Link>
                 <CardBody>
@@ -118,6 +152,24 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
 
         })}
       </Row>
+       
+  <div>
+    <Button onClick={handleOpen}>Open modal</Button>
+    <Modal
+      open={open}
+      // onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+      <Box style={{marginLeft: "10px" ,paddingLeft: "80px"}} >
+      <CircularProgress style={{width: "100px", height: "84", color: "#ff8400"}}  />
+    </Box>
+        
+      </Box>
+    </Modal>
+  </div>
+
     </>
   );
 };
