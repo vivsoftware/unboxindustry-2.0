@@ -66,69 +66,119 @@ function Home(props) {
   const [newarrivals, setnewarrivals] = useState(true);
   const [cobot, setcobot] = useState(true);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    document.documentElement.style.setProperty('--theme-color', '#0163d2');
-  fetchAPI(`/homepage`, {
-    populate: '*',
-  }).then((res) => {
-    setData(res.data.attributes);
+  //   document.documentElement.style.setProperty('--theme-color', '#0163d2');
+  // fetchAPI(`/homepage`, {
+  //   populate: '*',
+  // }).then((res) => {
+  //   setData(res.data.attributes);
 
-  });
+  // });
 
  
 
 
-  fetchAPI(`/dealsofthedays`, {
-    populate: '*',
-    pagination: {
-      limit: -1,
-    },
-  }).then((res) => {
-    setdealsoftheday(res.data);
-  });
+  // fetchAPI(`/dealsofthedays`, {
+  //   populate: '*',
+  //   pagination: {
+  //     limit: -1,
+  //   },
+  // }).then((res) => {
+  //   setdealsoftheday(res.data);
+  // });
 
 
 
-  fetchAPI(`/categories`, {
-    populate: '*',
-    pagination: {
-      limit: -1,
-    },
-  }).then((res) => {
-    setCategory(res.data);
-  });
+  // fetchAPI(`/categories`, {
+  //   populate: '*',
+  //   pagination: {
+  //     limit: -1,
+  //   },
+  // }).then((res) => {
+  //   setCategory(res.data);
+  // });
 
 
-  }, []);
+  // }, []);
 
+
+  // useEffect(() => {
+  //   auth.onAuthStateChanged(async (user) => {
+  //     setUser(user);
+  //     if (user && user.email) {
+  //       try {
+  //         const response = await axios.get(`${spring_boot_url}api/users/email?email=${user.email}`);
+  //         setuserDe(response.data);
+  //         // startTimer(); // Start the timer
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     } else if (user && user.phoneNumber) {
+  //       let phoneNumberd = user.phoneNumber;
+  //       phoneNumberd = phoneNumberd.replace(/\+/g, "");
+  //       axios.get(`${spring_boot_url}api/users/phone?phoneNumber=${phoneNumberd}`)
+  //         .then(resp => {
+  //           console.log(resp.data.json);
+  //           localStorage.setItem("data", JSON.stringify(resp.data));
+  //           setuserDe(resp.data);
+  //           if (resp.data) {
+  //           }
+  //         });
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      setUser(user);
-      if (user && user.email) {
-        try {
-          const response = await axios.get(`${spring_boot_url}api/users/email?email=${user.email}`);
-          setuserDe(response.data);
-          // startTimer(); // Start the timer
-        } catch (error) {
-          console.error(error);
-        }
-      } else if (user && user.phoneNumber) {
-        let phoneNumberd = user.phoneNumber;
-        phoneNumberd = phoneNumberd.replace(/\+/g, "");
-        axios.get(`${spring_boot_url}api/users/phone?phoneNumber=${phoneNumberd}`)
-          .then(resp => {
-            console.log(resp.data.json);
-            localStorage.setItem("data", JSON.stringify(resp.data));
-            setuserDe(resp.data);
-            if (resp.data) {
-            }
-          });
-      }
-    });
-  }, []);
+    const fetchData = async () => {
+      try{
+        // featching homepage data
+        const homeData = await fetchAPI('/homepage', {populate: '*'});
+        setData(homeData.data.attributes);
 
+        //feacthing deals of the day and and categories
+        const [dealsData, categoryData] = await Promise.all([
+          fetchAPI('/dealsofthedays', {populate: '*', pagination: {limit: -1}}),
+          fetchAPI('/categories', {populate: '*', pagination: {limit: -1}})
+        ]) ;
+        setdealsoftheday(dealsData.data);
+        setCategory(categoryData.data);
+
+        //checking User authentication
+        auth.onAuthStateChanged(async (user) => {
+          setUser(user);
+          if (user && user.email) {
+            try {
+              const response = await axios.get(`${spring_boot_url}api/users/email?email=${user.email}`);
+              setuserDe(response.data);
+              // startTimer(); // Start the timer
+            } catch (error) {
+              console.error(error);
+            }
+          } else if (user && user.phoneNumber) {
+            let phoneNumberd = user.phoneNumber;
+            phoneNumberd = phoneNumberd.replace(/\+/g, "");
+            axios.get(`${spring_boot_url}api/users/phone?phoneNumber=${phoneNumberd}`)
+              .then(resp => {
+                console.log(resp.data.json);
+                localStorage.setItem("data", JSON.stringify(resp.data));
+                setuserDe(resp.data);
+                if (resp.data) {
+                }
+              });
+          }
+        });
+
+        //setting is loading false
+        setIsLoading(false);
+      }catch (error){
+        console.log("error loc- index.js", error);
+      }
+
+    }
+
+    fetchData();
+  },[])
 
 
 
