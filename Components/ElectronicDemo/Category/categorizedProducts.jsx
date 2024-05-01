@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { lazy, Suspense,useEffect, useState, useRef } from "react";
 import { getStrapiMedia } from "../../../Utils/media";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import SkeletonLoader from "../../Element/SkeletonLoader";
 import { auth } from "../../../Config/firebase";
-import Image from "next/image";
+ import Image from "next/image";
 import { fetchAPI } from "../../../Utils/api";
+// const LazyImage = lazy(() => import('next/image'));
 
 const CategorizedProducts = () => {
   const [user, setUser] = useState(null);
@@ -154,6 +155,16 @@ const CategorizedProducts = () => {
                         className="sensor-image"
                         alt={el.attributes.product.data.attributes.name}
                       />
+
+                      // <Suspense fallback={<div>Loading....</div>}>
+                      //   <LazyImage
+                      //     src={getStrapiMedia(el.attributes.product.data.attributes.product_image)}
+                      //     style={{ width: "200px", height: "200px", borderBottom:'1px solid black' }}
+                      //     className="sensor-image"
+                      //     alt={el.attributes.product.data.attributes.product_name}
+                      //   />
+                      // </Suspense>
+
                     )}
                     <h5 className="mt-1" style={{ color: "black" }}>
                       {el.attributes.product.data.attributes.product_name}

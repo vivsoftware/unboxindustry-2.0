@@ -21,6 +21,7 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
+<<<<<<< HEAD
     ],
     "/blog/[bolgd]": [
       "static/chunks/webpack.js",
@@ -31,6 +32,8 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/blogs.js"
+=======
+>>>>>>> 55efc5f65e9570ea8891fcc4f3fc6dd902302582
     ]
   },
   "ampFirstPages": []
