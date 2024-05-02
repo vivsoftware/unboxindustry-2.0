@@ -15,6 +15,8 @@ import SkeletonLoader from '../../Element/SkeletonLoader';
 const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
   const [data, setData] = useState(null);
   const [load, setload] = useState(false);
+  const [bannerouter, setbannerouter] = useState(null);
+
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -53,6 +55,31 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
     fetchData();
 }, [start,pageNumber]);  //changes for changing pages data (Include start and pageNumber in the dependency array)
 
+
+useEffect(() => {
+  async function fetchDatabase() {
+    try {
+      const imgUrlBanner = await fetchAPI(`/blogbanners`, {
+        populate: '*', // Assuming '*' is a valid option for fetching all fields
+      }, {
+        encodeValuesOnly: true, // Prettify URL
+      });
+      
+      setbannerouter(imgUrlBanner.data);
+    } catch (error) {
+      // Handle any errors from the fetchAPI call
+      console.error("Error fetching banner data:", error);
+    }
+  }
+
+  fetchDatabase(); // Call the async function
+
+  // Since the dependency array is empty, this effect only runs once after the component mounts
+}, []);
+ //changes for changing pages data (Include start and pageNumber in the dependency array)
+
+
+
   if (!data) {
     return <SkeletonLoader />;
   }
@@ -69,19 +96,20 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
     router.push(`/blog/${elem.id}-${elem.attributes.blog_slug}`);
 
   }
+  console.log("baneerere", bannerouter)
   return (
     <>
 
       <div className='d-none d-xl-block d-md-block d-sm-none'>
         <Slider {...settings} className='mt-3 mb-5'>
-          {data.map((elem) => (
+          {bannerouter.map((elem) => (
             <div key={elem.id} className="slider-item">
               <div className="row">
     
       <Link onClick={() => handleLoad(elem) } href="">
 
 {/* <Link onClick={handleLoad=()=>  {elem}} href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}> */}
-  <Img  src={getStrapiMedia(elem.attributes.image)} className='card-img-top' alt={elem.attributes.title} height={500} width={400}  />
+  <Img  src={getStrapiMedia(elem.attributes.banner)} className='card-img-top' alt={elem.attributes.title} height={500} width={400}  />
 
 </Link>
 

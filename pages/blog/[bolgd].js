@@ -54,7 +54,10 @@ const Blogd = (props) => {
         <section className='masonary-blog-section'>
           <div className='blog-image-box'>
             <Img src={getStrapiMedia(banner_image)} className='card-img-top mt-2' alt={title} />
-            <span className='blog-para mt-3' dangerouslySetInnerHTML={{ __html: `${description}` }}></span>
+            <div className='bolgD'>
+            <span  dangerouslySetInnerHTML={{ __html: `${description}` }}></span>
+
+            </div>
             {additional_image.data === null ? (
               <p></p>
             ) : (
