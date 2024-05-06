@@ -1,4 +1,34 @@
 {
+  "..\\Components\\ElectronicDemo\\Categories.jsx -> next/image": {
+    "id": "..\\Components\\ElectronicDemo\\Categories.jsx -> next/image",
+    "files": []
+  },
+  "..\\Components\\ElectronicDemo\\Customers.jsx -> next/image": {
+    "id": "..\\Components\\ElectronicDemo\\Customers.jsx -> next/image",
+    "files": []
+  },
+  "..\\Components\\ElectronicDemo\\ElectronicCollection\\ProductCard.jsx -> next/image": {
+    "id": "..\\Components\\ElectronicDemo\\ElectronicCollection\\ProductCard.jsx -> next/image",
+    "files": []
+  },
+  "..\\Components\\ElectronicDemo\\ElectronicHomeSlider\\MainSliderCard.jsx -> next/image": {
+    "id": "..\\Components\\ElectronicDemo\\ElectronicHomeSlider\\MainSliderCard.jsx -> next/image",
+    "files": []
+  },
+  "..\\Components\\ElectronicDemo\\ElectronicHurryUp\\TabNavBar.jsx -> ../../FurnitureDemo/FurnitureTabSection/TabpanSection": {
+    "id": "..\\Components\\ElectronicDemo\\ElectronicHurryUp\\TabNavBar.jsx -> ../../FurnitureDemo/FurnitureTabSection/TabpanSection",
+    "files": [
+      "static/chunks/Components_FurnitureDemo_FurnitureTabSection_TabpanSection_jsx.js"
+    ]
+  },
+  "..\\Components\\ElectronicDemo\\ElectronicTopBanner\\Product.js -> next/image": {
+    "id": "..\\Components\\ElectronicDemo\\ElectronicTopBanner\\Product.js -> next/image",
+    "files": []
+  },
+  "..\\Components\\FlowerDemo\\BrandSlider\\index.jsx -> next/image": {
+    "id": "..\\Components\\FlowerDemo\\BrandSlider\\index.jsx -> next/image",
+    "files": []
+  },
   "..\\Layout\\Element\\NavBar.jsx -> ./Categoriesdynamic": {
     "id": "..\\Layout\\Element\\NavBar.jsx -> ./Categoriesdynamic",
     "files": [
