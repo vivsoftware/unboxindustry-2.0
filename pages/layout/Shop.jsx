@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'reactstrap';
-import useFilter from '../../Utils/useFilter';
+import React, { useState } from 'react';
+import { Col, Row } from 'reactstrap';
 import PaginationComp from '../../Components/Element/Pagination';
 import AllProducts from '../../Components/Shop/ShopCanvasFilter/AllProducts';
-import FilterButton from '../../Components/Shop/ShopCanvasFilter/FilterButton';
-import FilterContent from '../../Components/Shop/ShopCanvasFilter/FilterContent';
-import ShopBannerDetails from '../../Components/Shop/ShopCanvasFilter/ShopBannerDetails';
 import SidebarFilter from '../../Components/Shop/ShopLeftSidebarContain/SidebarFilter';
+import useFilter from '../../Utils/useFilter';
 
 const ShopLeftSidebarContain = ({ productData, listGrid, products, fetchProducts, show }) => {
   const filterProduct = useFilter(products);
@@ -35,7 +32,7 @@ const ShopLeftSidebarContain = ({ productData, listGrid, products, fetchProducts
           
           <SidebarFilter productData={productData} products={products} />
           <Col lg='9' xs='12' className='ratio_30'>
-            <FilterButton customClass={'filter-button mb-3'} productData={productData} products={filterProduct} />
+            {/* <FilterButton customClass={'filter-button mb-3'} productData={productData} products={filterProduct} /> */}
             <AllProducts currentData={currentData} />
             <PaginationComp dataPerPage={dataPerPage} StoreProductLength={StoreProducts?.length} currentPage={currentPage} paginate={paginate} />
           </Col>
