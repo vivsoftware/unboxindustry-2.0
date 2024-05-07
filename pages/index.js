@@ -69,35 +69,35 @@ function Home(props) {
   useEffect(() => {
 
     document.documentElement.style.setProperty('--theme-color', '#0163d2');
-  fetchAPI(`/homepage`, {
-    populate: '*',
-  }).then((res) => {
-    setData(res.data.attributes);
+    fetchAPI(`/homepage`, {
+      populate: '*',
+    }).then((res) => {
+      setData(res.data.attributes);
 
-  });
-
- 
-
-
-  fetchAPI(`/dealsofthedays`, {
-    populate: '*',
-    pagination: {
-      limit: -1,
-    },
-  }).then((res) => {
-    setdealsoftheday(res.data);
-  });
+    });
 
 
 
-  fetchAPI(`/categories`, {
-    populate: '*',
-    pagination: {
-      limit: -1,
-    },
-  }).then((res) => {
-    setCategory(res.data);
-  });
+
+    fetchAPI(`/dealsofthedays`, {
+      populate: '*',
+      pagination: {
+        limit: -1,
+      },
+    }).then((res) => {
+      setdealsoftheday(res.data);
+    });
+
+
+
+    fetchAPI(`/categories`, {
+      populate: '*',
+      pagination: {
+        limit: -1,
+      },
+    }).then((res) => {
+      setCategory(res.data);
+    });
 
 
   }, []);
@@ -156,7 +156,7 @@ function Home(props) {
       <>
         <Layout4 className="home-page">
           <Head>
-          <title> Industrial Automation Products And Solutions - Home  </title>
+            <title> Industrial Automation Products And Solutions - Home  </title>
             <meta name="description" content="Unbox Industry offers automation products and solutions with high performance and reliability including drives, control systems, industrial robots & cobots." />
             <meta name="keywords" content="industrial automation, industrial automation products, industrial robots & cobots, industrial grippers and sensors, cameras and industrial robot protective covers" />
             <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -203,7 +203,7 @@ function Home(props) {
         <div className='d-block d-xl-none d-md-none d-sm-block slider-container ms-2 me-2'>
           <Slider autoplay='true' pauseOnHover='false' indicators='false' arrows='false' prevIcon={null} nextIcon={null}>
             {mobileBanner?.map((banner) => (
-              <img src={getStrapiMedia(banner)} style={{ maxWidth: '100%', height: 'auto' }} alt='mobile banners'/>
+              <img src={getStrapiMedia(banner)} style={{ maxWidth: '100%', height: 'auto' }} alt='mobile banners' />
             ))}
             {/* <img src="Banner1.png" style={{ maxWidth: '100%', height: 'auto' }} />
               <img src="Banner2.png" style={{ maxWidth: '100%', height: 'auto' }} />
@@ -222,7 +222,7 @@ function Home(props) {
 
           <ElectronicCollection productData={dealsoftheday} />
 
-        )} 
+        )}
 
         {category ? (
           <Categories category={category} />
@@ -246,9 +246,9 @@ function Home(props) {
           <SkeletonLoader />
         ) : (
 
-          <ElectronicInstagramShop  />
+          <ElectronicInstagramShop />
 
-        )} 
+        )}
 
         {!(data) ? (
           <SkeletonLoader />
@@ -261,10 +261,10 @@ function Home(props) {
         ) : (
           <CategorizedProducts />
 
-        )} 
+        )}
 
 
-{/* <cameraCategory/> */}
+        {/* <cameraCategory/> */}
         {/* {/* <NewProducts newVideo={newVideo} /> */}
 
         {!data ? (
