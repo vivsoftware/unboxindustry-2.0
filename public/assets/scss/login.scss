@@ -2257,6 +2257,9 @@ textarea {
       height: 700px;
       background-size: cover;
       display: block;
+    //   justify-content: center;
+      margin-left:10px;
+      margin-right: 10px;
     }
   
     .blog-page1 {
@@ -2269,6 +2272,7 @@ textarea {
     .blog-heading2 {
       text-align: center;
       padding-top: 60px;
+      font-size: 24px;
     }
   
     .blog-page2 {
@@ -2283,6 +2287,7 @@ textarea {
       margin-left: 800px;
       margin-right: 100px;
       padding-top: 85px;
+      font-size: 18px;
     }
   
     .blog-image {
@@ -2297,7 +2302,7 @@ textarea {
       margin-left: 350px;
       margin-right: 350px;
       text-align: justify;
-      font-size: 25px;
+      font-size: 20px;
       display: block;
     }
   
@@ -2309,6 +2314,7 @@ textarea {
       border: 0.8px solid black;
     }
   }
+  
   
 /* For mobile screens */
 @media only screen and (max-width: 767px) {

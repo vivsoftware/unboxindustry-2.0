@@ -122,38 +122,37 @@ const Blogd = (props) => {
 
   }
 
- 
   useEffect(() => {
     if (data.attributes.banner_image) {
       setBackground(`url(${getStrapiMedia(data.attributes.banner_image)})`);
     }
   }, [data]);
 
-  const style = {
-    backgroundColor: "#ffffff",
-    //backgroundImage: background,
-    // backgroundRepeat: "no-repeat",
-    // backgroundSize: "1910px 700px",
-    // height: "700px",
-    //    paddingTop: "20px",
-    //    marginTop: "20px",
-  }
+  // const style = {
+  //   backgroundColor: "#ffffff",
+  //   //backgroundImage: background,
+  //   // backgroundRepeat: "no-repeat",
+  //   // backgroundSize: "1910px 700px",
+  //   // height: "700px",
+  //   //    paddingTop: "20px",
+  //   //    marginTop: "20px",
+  // }
 
-  const style1 = {
-    backgroundColor: "white",
-    width: "1900px",
-    height: "1000px",
-    backgroundSize: "1900px 900px",
-  }
+  // const style1 = {
+  //   backgroundColor: "white",
+  //   width: "1900px",
+  //   height: "1000px",
+  //   backgroundSize: "1900px 900px",
+  // }
 
-  const style2 = {
-    backgroundColor: "#ff8400",
-    width: "1900px",
-    height: "550px",
-    marginTop: "150px",
-    display: "flex",
-    //backgroundSize: "1900px 900px",
-  }
+  // const style2 = {
+  //   backgroundColor: "#ff8400",
+  //   width: "1900px",
+  //   height: "550px",
+  //   marginTop: "150px",
+  //   display: "flex",
+  //   //backgroundSize: "1900px 900px",
+  // }
 
   const {
     banner_image,
@@ -186,13 +185,10 @@ const Blogd = (props) => {
   } = data.attributes;
 
   const { metaTitle, metaDescription, metaImage, keywords, canonicalURL } = data.attributes.SEO || {};
-
   //changes for mapping//
   const descriptions = [Description1, Description2, Description3, Description4, Description5, Description6, Description7];
   const images = [Description1_image, Description2_image, Description3_image, Description4_image, Description5_image, Description6_image, Description7_image];
   //changes end//
-
-
   // console.log("additional_image", data)
   // console.log("bg_image", background);
   return (
@@ -201,50 +197,27 @@ const Blogd = (props) => {
         <title>{title}</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' type='image/x-icon' href={`${CommonPath}/favicon/2.png`} alt="unboxLogo" />
-      
         <meta name="description" content={metaDescription || ''} />
         <meta property="title" content={metaTitle || ''} />
         <meta property="keywords" content={keywords || ''} />
         <meta property="image" content={metaImage || ''} />
         <meta property="canonicalURL" content={canonicalURL || ''} />
-
-
       </Head>
       <BreadCrumb parent={''} title={''} />
 
-      <div className='blog-page' style={style}>
-        {/* <img src= {`/${background}` } style={{width: "1900px", height: "410px" }} alt={title} /> */}
-        {/* <div
-          style={{
-            backgroundImage: `url(${getStrapiMedia(banner_image)})`,
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed", // You can adjust this property as needed
-            width: "1900px",
-            height: "700px",
-          }}
-        >
-        </div> */}
-        <div
-          style={{
-            backgroundImage: `url("${getStrapiMedia(banner_image)}")`, // Ensure the URL is wrapped in double quotes
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed", // You can adjust this property as needed
-            width: "4900px",
-            height: "700px",
-          }}
-        >
-
+      <div className='blog-page' id='blog'>
+        <div className='blogg-page' id='blogg' style={{ backgroundImage: `url("${getStrapiMedia(banner_image)}")` }}>
         </div>
       </div>
 
+      <div className='blog-page1' id='blog1'>
 
-      <div className='blog-page1' style={style1}>
-        <h2 style={{ textAlign: "center", paddingTop: "60px" }}>{title}<br /></h2>
+        <h2 className='blog-heading2'>{title}<br /></h2>
 
-        <div className='blog-page2' style={style2}>
-          <h3 style={{ marginLeft: "800px", marginRight: "100px", paddingTop: "85px" }}>{testing1}</h3>
+        <div className='blog-page2' id='blog2'>
+          <h3 className='blog-heading3' id='heading1'>{testing1}</h3>
         </div>
-        <Img style={{ marginTop: "-633px", marginLeft: "170px", width: "460px", height: "710px", marginLeft: "140px", border: "0.8px solid black" }} src={getStrapiMedia(additional_image)} alt={title} />
+        <Img className='blog-image' id='image1' src={getStrapiMedia(additional_image)} alt={title} />
       </div>
 
       {/* //////////////It is simple way but we have to write about every line////////////////// */}
@@ -271,33 +244,14 @@ const Blogd = (props) => {
       </div> */}
 
       {/* //////////////////This is same but using map function yet simple and effective//////////// */}
-      <div style={{ paddingTop: "10px" }}>
+      <div className='description' id='description1' style={{ paddingTop: "10px" }}>
         {descriptions.map((description, index) => (
           <div key={index}>
             {/* For the Description */}
-            <span
-              className=""
-              style={{
-                marginLeft: "350px",
-                marginRight: "350px",
-                textAlign: "justify",
-                fontSize: "25px"
-              }}
-              dangerouslySetInnerHTML={{ __html: description }}
-            ></span>
+            <span className='description-span' id='description-span1' dangerouslySetInnerHTML={{ __html: description }}></span>
 
             {/* For the Image */}
-            <Img
-              style={{
-                marginTop: "56px",
-                width: "570px",
-                height: "510px",
-                marginLeft: "700px",
-                border: "0.8px solid black"             
-              }}
-              src={getStrapiMedia(images[index])}
-              alt={title}
-            /> 
+            <Img className='image-class' id='description-image1' src={getStrapiMedia(images[index])} alt={title} />
           </div>
         ))}
       </div>
@@ -341,10 +295,8 @@ export async function getServerSideProps({ query, locale }) {
   };
 }
 
-
-
-
-
 export default Blogd;
+
+
 
 
