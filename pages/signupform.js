@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ToastContainer, toast } from 'react-toastify';
 import spring_boot_url from '../Utils/springApi';
-import { createUserWithEmailAndPassword,fetchSignInMethodsForEmail,} from 'firebase/auth';
+import { createUserWithEmailAndPassword, fetchSignInMethodsForEmail, } from 'firebase/auth';
 import { auth } from '../Config/firebase';
 
 const RegisterDetails = () => {
@@ -63,37 +63,37 @@ const RegisterDetails = () => {
         e.preventDefault();
         // Check if any required field is empty
         if (!firstName || !lastName || !email || !passwordfirebase || !about) {
-          // Handle the case when a required field is empty
-          toast.error('Please fill in all required fields.');
-          return;
+            // Handle the case when a required field is empty
+            toast.error('Please fill in all required fields.');
+            return;
         }
         // Proceed with form submission
         handleSignUp(e);
         let phoneNumberd = user.phoneNumber;
         phoneNumberd = phoneNumberd.replace(/\+/g, '');
         const userDetails = {
-          firstName,
-          lastName,
-          email,
-          password: 'Unbox@123455',
-          about,
-          phoneNumber: `${phoneNumberd}`,
+            firstName,
+            lastName,
+            email,
+            password: 'Unbox@123455',
+            about,
+            phoneNumber: `${phoneNumberd}`,
         };
         console.log(userDetails);
         fetch(`${spring_boot_url}api/auth/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userDetails),
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userDetails),
         }).then((resp) => {
-          setuserDe(resp.body);
-    
-          if (resp.ok === true) {
-            const { user } =  createUserWithEmailAndPassword(auth, email, passwordfirebase);
-            router.push("/user_dashboard");
-            // SignUpForm();
-          }
+            setuserDe(resp.body);
+
+            if (resp.ok === true) {
+                const { user } = createUserWithEmailAndPassword(auth, email, passwordfirebase);
+                router.push("/user_dashboard");
+                // SignUpForm();
+            }
         });
-      };
+    };
     const [isRegistered, setIsRegistered] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const handleCheckEmailRegistered = async (e) => {
@@ -114,7 +114,7 @@ const RegisterDetails = () => {
         auth.signOut().then(() => {
             setuser(null)
             auth.onAuthStateChanged(async (user) => {
-                setuser(user)          
+                setuser(user)
             })
         })
     }
@@ -124,7 +124,7 @@ const RegisterDetails = () => {
                 <Head>
                     <title>Unbox Industry-Register</title>
                     <meta name='viewport' content='width=device-width, initial-scale=1' />
-                    <link rel="icon" href="/Box.ico" alt="unboxLogo"/>
+                    <link rel="icon" href="/Box.ico" alt="unboxLogo" />
                     <link rel="canonical" href="https://www.unboxindustry.com/signupform" />
                 </Head>
                 <div className='container mt-5 mb-5'>
@@ -133,7 +133,7 @@ const RegisterDetails = () => {
                             <div className='col-md-6 col-sm-12 login-card'>
                                 <div style={{ display: "flex", justifyContent: "space-evenly", marginBottom: '20px' }}>
                                     <Link href="/sign-up">
-                                        <h1 className='login-toggle fw-bold' style={{fontSize:'25px',color:'black'}} >Sign Up</h1>
+                                        <h1 className='login-toggle fw-bold' style={{ fontSize: '25px', color: 'black' }} >Sign Up</h1>
                                     </Link>
                                 </div>
                                 <form onSubmit={handleCheckEmailRegistered}>

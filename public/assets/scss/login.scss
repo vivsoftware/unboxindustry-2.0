@@ -2839,3 +2839,66 @@ textarea {
 //////changes end///
 //}
 
+////////////////////////////////////////////new login page css /////////////////////////////////////////////////
+
+.maindiv {
+
+    background-color: #FF8400;
+    width: 1650px;
+    height: 600px;
+    margin-left: 14px;
+    margin-top: 0px;
+    padding-top: 85px;
+    padding-left: 263px;
+}
+
+.secondDiv {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: #2196F3;
+    padding: 10px;
+    width: 1088px;
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid #111;
+    margin-left: 10px;
+    padding-top: 0px;
+    padding-left: 36px;
+    align-items: center;
+
+}
+
+.thirdDiv {
+    margin-top: -60px;
+
+}
+
+.logoDiv {
+    // mix-blend-mode: multiply;
+    width: 100px;
+    height: 223px;
+    margin-top: 76px;
+    margin-left: 148px;
+}
+
+
+.logoDiv1 {
+    // mix-blend-mode: multiply;
+    width: 290px;
+    height: 251px;
+    // margin-top: 23px;
+    // margin-left: 82px;
+}
+
+
+
+.secondDiv2ndpart {
+    background-color: #ff8400;
+    height: 397px;
+    width: 628px;
+    padding-left: 37px;
+    margin-left: 122px;
+    border-radius: 10px;
+}
+
