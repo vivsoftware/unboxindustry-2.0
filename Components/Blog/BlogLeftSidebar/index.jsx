@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
-import { getAllUsers } from '../../../Service/FetchApi';
+// import { getAllUsers } from '../../../Service/FetchApi';
 import PaginationComp from '../../Element/Pagination';
 import LeftSidebar from '../BlogDetails/LeftSidebar';
 import ProductCard from './ProductCard';

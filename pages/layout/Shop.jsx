@@ -1,48 +1,29 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
-import { Col, Container, Row } from 'reactstrap';
-import useFilter from '../../Utils/useFilter';
+import React, { useState } from 'react';
+import { Col, Row } from 'reactstrap';
 import PaginationComp from '../../Components/Element/Pagination';
 import AllProducts from '../../Components/Shop/ShopCanvasFilter/AllProducts';
-import FilterButton from '../../Components/Shop/ShopCanvasFilter/FilterButton';
-import FilterContent from '../../Components/Shop/ShopCanvasFilter/FilterContent';
-import ShopBannerDetails from '../../Components/Shop/ShopCanvasFilter/ShopBannerDetails';
 import SidebarFilter from '../../Components/Shop/ShopLeftSidebarContain/SidebarFilter';
+import useFilter from '../../Utils/useFilter';
 
 const ShopLeftSidebarContain = ({ productData, listGrid, products, fetchProducts, show }) => {
   const filterProduct = useFilter(products);
   const StoreProducts = filterProduct && filterProduct;
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(20);
-  const indexOfLastPost = currentPage * dataPerPage; 
+  const indexOfLastPost = currentPage * dataPerPage;
   const indexOfFirstPost = indexOfLastPost - dataPerPage;
   const currentData = StoreProducts && StoreProducts?.slice(indexOfFirstPost, indexOfLastPost);
-  const [product, setProduct] = useState([]);
-
   const paginate = (pageNumber) => {
     const totalPages = Math.ceil(StoreProducts?.length / dataPerPage);
     if (pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
     }
   };
-
-  // const fetchProducts = async (page = 1) => {
-  //   try {
-  //     // const response = await fetch(`https://fakestoreapi.com/products?limit=20&page=${page}`);
-  //     const response = await fetch(`api/products?limit=20&page=${page}`);
-  //     const data = await response.json();
-  //     setProduct(data);
-
-  //   } catch (error) {
-  //     console.log("errror in Shop in featching products", error);
-  //   }
-  // }
   const handlePageChange = (page) => {
     // Update the current page and fetch products for the new page
     setCurrentPage(page);
     fetchProducts(page);
   };
-
-  console.log("Shop page products", product);
   const totalPages = Math.ceil(productData / 20);
   return (
     <section className='section-b-space'>
@@ -51,7 +32,7 @@ const ShopLeftSidebarContain = ({ productData, listGrid, products, fetchProducts
           
           <SidebarFilter productData={productData} products={products} />
           <Col lg='9' xs='12' className='ratio_30'>
-            <FilterButton customClass={'filter-button mb-3'} productData={productData} products={filterProduct} />
+            {/* <FilterButton customClass={'filter-button mb-3'} productData={productData} products={filterProduct} /> */}
             <AllProducts currentData={currentData} />
             <PaginationComp dataPerPage={dataPerPage} StoreProductLength={StoreProducts?.length} currentPage={currentPage} paginate={paginate} />
           </Col>

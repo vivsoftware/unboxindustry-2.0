@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { use, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Slider from 'react-slick';
 import Categories from '../Components/ElectronicDemo/Categories';
 import CategorizedProducts from '../Components/ElectronicDemo/Category/categorizedProducts';
@@ -25,29 +25,7 @@ import { fetchAPI } from '../Utils/api';
 import { getStrapiMedia } from '../Utils/media';
 import spring_boot_url from '../Utils/springApi';
 import Enquire from './layout/Enquire';
-//import connection from './testDbConnection';  
-
-//  const mysql = require('mysql');
-
 const cache = {};
-/// Or, if you want to execute the connection code during server-side rendering, you can import it in the getServerSideProps or getStaticProps functions:
-// to do tomomorow
-
-// const connection = mysql.createConnection({
-//   host: 'localhost:3306',
-//   user: 'root',
-//   password: 'root',
-//   database: 'testjavadb',
-// });
-
-// connection.connect((err) => {
-//   if (err) {
-//       console.error('error in connecting to db:-', err.stack);
-//       return;
-//   }
-//   console.log('connected to db successfully');
-// });
-
 
 export const getServerSideProps = async ({ locale }, props) => {
   // Check if the data is already cached
@@ -87,65 +65,70 @@ function Home(props) {
   const [dealsoftheday, setdealsoftheday] = useState(true);
   const [newarrivals, setnewarrivals] = useState(true);
   const [cobot, setcobot] = useState(true);
-  
+
   useEffect(() => {
-    const fetchData = async () => {
-      try{
-        // featching homepage data
-        const homeData = await fetchAPI('/homepage', {populate: '*'});
-        setData(homeData.data.attributes);
 
-        //feacthing deals of the day and and categories
-        const [dealsData, categoryData] = await Promise.all([
-          fetchAPI('/dealsofthedays', {populate: '*', pagination: {limit: -1}}),
-          fetchAPI('/categories', {populate: '*', pagination: {limit: -1}})
-        ]) ;
-        setdealsoftheday(dealsData.data);
-        setCategory(categoryData.data);
+    document.documentElement.style.setProperty('--theme-color', '#0163d2');
+    fetchAPI(`/homepage`, {
+      populate: '*',
+    }).then((res) => {
+      setData(res.data.attributes);
 
-        //checking User authentication
-        auth.onAuthStateChanged(async (user) => {
-          setUser(user);
-          if (user && user.email) {
-            try {
-              const response = await axios.get(`${spring_boot_url}api/users/email?email=${user.email}`);
-              setuserDe(response.data);
-              // startTimer(); // Start the timer
+    });
 
-              //checking database connection
-                connection.on('connect', () => {
-                  console.log("connected to database");
-                });
-                connection.on('error', () => {
-                  console.log("error in connection database", err);
-                })
-            } catch (error) {
-              console.error(error);
+
+
+
+    fetchAPI(`/dealsofthedays`, {
+      populate: '*',
+      pagination: {
+        limit: -1,
+      },
+    }).then((res) => {
+      setdealsoftheday(res.data);
+    });
+
+
+
+    fetchAPI(`/categories`, {
+      populate: '*',
+      pagination: {
+        limit: -1,
+      },
+    }).then((res) => {
+      setCategory(res.data);
+    });
+
+
+  }, []);
+
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      setUser(user);
+      if (user && user.email) {
+        try {
+          const response = await axios.get(`${spring_boot_url}api/users/email?email=${user.email}`);
+          setuserDe(response.data);
+          // startTimer(); // Start the timer
+        } catch (error) {
+          console.error(error);
+        }
+      } else if (user && user.phoneNumber) {
+        let phoneNumberd = user.phoneNumber;
+        phoneNumberd = phoneNumberd.replace(/\+/g, "");
+        axios.get(`${spring_boot_url}api/users/phone?phoneNumber=${phoneNumberd}`)
+          .then(resp => {
+            console.log(resp.data.json);
+            localStorage.setItem("data", JSON.stringify(resp.data));
+            setuserDe(resp.data);
+            if (resp.data) {
             }
-          } else if (user && user.phoneNumber) {
-            let phoneNumberd = user.phoneNumber;
-            phoneNumberd = phoneNumberd.replace(/\+/g, "");
-            axios.get(`${spring_boot_url}api/users/phone?phoneNumber=${phoneNumberd}`)
-              .then(resp => {
-                console.log(resp.data.json);
-                localStorage.setItem("data", JSON.stringify(resp.data));
-                setuserDe(resp.data);
-                if (resp.data) {
-                }
-              });
-          }
-        });
-
-        //setting is loading false
-        setIsLoading(false);
-      }catch (error){
-        console.log("error loc- index.js", error);
+          });
       }
+    });
+  }, []);
 
-    }
-
-    fetchData();
-  },[])
 
 
 
@@ -173,7 +156,7 @@ function Home(props) {
       <>
         <Layout4 className="home-page">
           <Head>
-          <title> Industrial Automation Products And Solutions - Home  </title>
+            <title> Industrial Automation Products And Solutions - Home  </title>
             <meta name="description" content="Unbox Industry offers automation products and solutions with high performance and reliability including drives, control systems, industrial robots & cobots." />
             <meta name="keywords" content="industrial automation, industrial automation products, industrial robots & cobots, industrial grippers and sensors, cameras and industrial robot protective covers" />
             <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -220,7 +203,7 @@ function Home(props) {
         <div className='d-block d-xl-none d-md-none d-sm-block slider-container ms-2 me-2'>
           <Slider autoplay='true' pauseOnHover='false' indicators='false' arrows='false' prevIcon={null} nextIcon={null}>
             {mobileBanner?.map((banner) => (
-              <img src={getStrapiMedia(banner)} style={{ maxWidth: '100%', height: 'auto' }} alt='mobile banners'/>
+              <img src={getStrapiMedia(banner)} style={{ maxWidth: '100%', height: 'auto' }} alt='mobile banners' />
             ))}
             {/* <img src="Banner1.png" style={{ maxWidth: '100%', height: 'auto' }} />
               <img src="Banner2.png" style={{ maxWidth: '100%', height: 'auto' }} />
@@ -239,7 +222,7 @@ function Home(props) {
 
           <ElectronicCollection productData={dealsoftheday} />
 
-        )} 
+        )}
 
         {category ? (
           <Categories category={category} />
@@ -263,9 +246,9 @@ function Home(props) {
           <SkeletonLoader />
         ) : (
 
-          <ElectronicInstagramShop  />
+          <ElectronicInstagramShop />
 
-        )} 
+        )}
 
         {!(data) ? (
           <SkeletonLoader />
@@ -278,10 +261,10 @@ function Home(props) {
         ) : (
           <CategorizedProducts />
 
-        )} 
+        )}
 
 
-{/* <cameraCategory/> */}
+        {/* <cameraCategory/> */}
         {/* {/* <NewProducts newVideo={newVideo} /> */}
 
         {!data ? (
