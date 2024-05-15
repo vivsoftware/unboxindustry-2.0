@@ -47,6 +47,7 @@ const productByBrands = (props) => {
         setProducts(res.data.attributes.products?.data)
     })
 },[router])
+console.log("category", products);
   return (
     <Layout4>
       <Head>

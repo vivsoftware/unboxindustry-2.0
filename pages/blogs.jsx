@@ -1,121 +1,65 @@
+import Head from "next/head";
+import React, { useState, useEffect, memo, useMemo, lazy, Suspense } from "react";
+import BlogNoSidebarContain from "./layout/Blog";
+import { CommonPath } from "../Components/Constant";
+import BreadCrumb from "../Components/Element/BreadCrumb";
+// import FlowerSubscribe from "../Components/FlowerDemo/FlowerSubscribe";
+import Layout4 from "../Layout/Layout4";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Enquire from "./layout/Enquire";
+import { fetchAPI } from "../Utils/api";
+import { useRouter } from "next/router";
+// import PaginationSidebar from "../Components/Blog/BlogNoSider/PaginationSidebar";
 
-import Head from 'next/head';
-import React, { useState, useEffect } from 'react';
-import BlogNoSidebarContain from './layout/Blog';
-import { CommonPath } from '../Components/Constant';
-import BreadCrumb from '../Components/Element/BreadCrumb';
-import FlowerSubscribe from '../Components/FlowerDemo/FlowerSubscribe';
-import Layout4 from '../Layout/Layout4';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Enquire from './layout/Enquire';
-import { fetchAPI } from '../Utils/api';
-import { useRouter } from 'next/router';
-import PaginationSidebar from '../Components/Blog/BlogNoSider/PaginationSidebar';
+const FlowerSubscribeLazy = React.lazy(() => import("../Components/FlowerDemo/FlowerSubscribe"));
+const PaginationSidebarLazy = React.lazy(() => import("../Components/Blog/BlogNoSider/PaginationSidebar"));
 
 
-export const getStaticProps = async ({ locale }) => ({ props: { ...(await serverSideTranslations(locale, ['common'])) } });
+//Optimizating the code
+//using server-side-rendering
 
-const BlogNoSidebar = (context) => {
+export const getStaticProps = async ({ locale }) => {
+  const blogsData = await fetchAPI("/blogs", {
+    populate: "*",
+    pagination: {
+      start: 0,
+      limit: -1,
+    },
+  });
 
-  ////////////changes//////////
-  const [productData, setProductData] = useState([]);
-  const [show, setShow] = useState([false]);
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+      blogsData: blogsData.data,
+    },
+  };
+};
+
+const BlogNoSidebar = memo(({ blogsData }) => {
   const [currentPages, setCurrentPage] = useState(0);
-  const [totalproducts, settotalproducts] = useState();
-  const [lastpage, setlastpage] = useState();
+  const [totalproducts, settotalproducts] = useState(0);
+  const [lastpage, setlastpage] = useState(0);
+
+  // memoizing expensive caculations
+  const itemsPerPage = 6;
+  const totalItems = totalproducts;
+  const totalPages = useMemo(
+    () => Math.ceil(totalItems / itemsPerPage),
+    [totalItems, itemsPerPage]
+  );
 
   useEffect(() => {
-    fetchAPI(`/blogs`, {
-      populate: "*",
-      pagination: {
-        start: 0,
-        limit: -1,
-      },
-    }).then((res) => {
-      settotalproducts(res.data.length);
-      setlastpage(Math.floor(res.data.length / 6) + 1)
+    settotalproducts(blogsData.length);
+    setlastpage(Math.floor(blogsData.length / itemsPerPage) + 1);
+  }, [blogsData, itemsPerPage]);
 
-    });
-  }, []);
-  
-  ///////////////changes//////////////
-  let items = [];
-
-  for (let i = 1; i <= `${lastpage}`; i++) {
-    items.push(i);
-  }
-  console.log(items);
   const router = useRouter();
-  const handleLoadMore = async () => {
-    // const nextPage = 0++;
-    const nextPage = currentPages + 1;
-    router.push(`/shop?page=${nextPage}`);
-    // Redirect to the same page with a query parameter to specify the starting point
-    // window.location.href = `/shop?page=${nextPage}`;
-    setCurrentPage(nextPage)
-  };
-  const handleLoadless = async () => {
-    // const nextPage = 0++;
-
-    if (currentPages === Math.floor(totalproducts / 6)) {
-      const nextPage = currentPages - 5; 
-      router.push(`/blogs?page=${nextPage}`);
-      setCurrentPage(nextPage)
-    } else {
-      const nextPage = currentPages - 1;
-      router.push(`/blogs?page=${nextPage}`);
-      setCurrentPage(nextPage)
-    }
-  };
-
-  const pageOne = async () => {
-    const nextPage = 0;
-    router.push(`/blogs?page=${nextPage}`);
-    setCurrentPage(nextPage)
-  };
-
-  const pageTwo = async () => {
-    const nextPage = 1;
-    router.push(`/blogs?page=${nextPage}`);
-    setCurrentPage(nextPage)
-
-  };
-  const pageThree = async () => {
-    const nextPage = currentPages + 1;
-    router.push(`/blogs?page=${nextPage}`);
-    setCurrentPage(nextPage)
-
-  };
-  const backPage = async () => {
-    if (currentPages > 0) {
-      const nextPage = currentPages - 1;
-      await router.push(`/blogs?page=${nextPage}`);
-      setCurrentPage(nextPage);
-    }
-  };
-  const nextPage = async () => {
-    const nextPage = currentPages + 1;
-    router.push(`/blogs?page=${nextPage}`);
-    setCurrentPage(nextPage)
-
-  };
-  const pageLast = async () => {
-    // const nextPage = 0++;
-    const nextPage = parseInt(totalproducts / 20);
-    router.push(`/blogs?page=${nextPage}`);
-    setCurrentPage(`${lastpage}` - 1)
-    // }
-  };
-  const pageClick = (pageNumber) => {
+  const handlePageChange = (pageNumber) => {
     router.push(`/blogs?page=${pageNumber}`);
     setCurrentPage(pageNumber);
   };
 
-  const itemsPerPage = 6; // Adjust this based on your desired items per page
-
-  const totalItems = totalproducts;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const renderButtons = () => {
+  const renderButtons = useMemo(() => {
     const buttons = [];
     const totalPagesToShow = 3; // Change this value to control how many page buttons to show at a time
 
@@ -123,108 +67,75 @@ const BlogNoSidebar = (context) => {
       buttons.push(
         <button
           key={i + 1}
-          className={`btn pagination-prev-back ms-1 ${currentPages === i ? 'active' : ''}`}
-          onClick={() => pageClick(i)}
+          className={`btn pagination-prev-back ms-1 ${
+            currentPages === i ? "active" : ""
+          }`}
+          onClick={() => handlePageChange(i)}
         >
           {i + 1}
         </button>
       );
     }
-
     return buttons;
-  };
-  ///////////////////end/////////////
+  }, [currentPages]);
 
-  const { locale, query } = context;
-  const page = parseInt(query?.page) || 0; // Get the page from the query parameters
-  // Calculate the start index based on the page and limit
-  const start = page * 25;
-
-console.log("dfhdjhf",query);
   return (
     <Layout4>
       <Head>
-        <title>Blogs </title>
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <title>Blogs</title>
+        / <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="title" content="Blogs" />
-        <meta name="description" content="Industrial Automation Blog Best List. DH Robotics Electric Gripper, Inductive Sensors Di-Soric, Robotic Welding, What are servo grippers ?" />
-        <link rel='icon' type='image/x-icon' href={`${CommonPath}/favicon/2.png`} alt="unboxLogo" />
+        <meta
+          name="description"
+          content="Industrial Automation Blog Best List. DH Robotics Electric Gripper, Inductive Sensors Di-Soric, Robotic Welding, What are servo grippers ?"
+        />
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href={`${CommonPath}/favicon/2.png`}
+          alt="unboxLogo"
+        />
         <link rel="canonical" href="https://www.unboxindustry.com/blogs" />
       </Head>
       <BreadCrumb parent={''} title={''} />
-      <h1 className='text-center mt-1 mb-2' style={{ fontSize: '30px' }}>Blogs</h1>
-      <BlogNoSidebarContain pageNumber={currentPages} start={start} />
+      <h1 className="text-center mt-1 mb-2" style={{ fontSize: "30px" }}>Blogs</h1>
+      <BlogNoSidebarContain pageNumber={currentPages} data={blogsData} itemsPerPage={itemsPerPage} />
 
-
-      {/* ///////////changes//////////////// */}
-      <div className='container text-center'>
-        <div className='row d-flex justify-content-center align-items-center'>
-          <div className='col-12'>
-            <button className="btn pagination-prev-back ms-1" onClick={backPage} disabled={currentPages === 0}>
+      <div className="container text-center">
+        <div className="row d-flex justify-content-center align-items-center">
+          <div className="col-12">
+            <button
+              className="btn pagination-prev-back ms-1" onClick={() => handlePageChange(currentPages - 1)} disabled={currentPages === 0}
+            >
               Prev
             </button>
-            <button className="btn pagination-prev-back ms-1" onClick={pageOne} >
+            <button className="btn pagination-prev-back ms-1" onClick={() => handlePageChange(0)} >
               1
             </button>
-            <button className="btn pagination-prev-back ms-1" onClick={pageTwo} >
+            <button className="btn pagination-prev-back ms-1" onClick={() => handlePageChange(1)} >
               2
             </button>
             <span className='ms-1'>....</span>
             {currentPages > 2 && (
-              <button className="btn pagination-prev-back ms-1" onClick={() => pageClick(currentPages)}>
+              <button className="btn pagination-prev-back ms-1" onClick={() => handlePageChange(currentPages)}>
                 {currentPages}
               </button>
             )}
-            {renderButtons()}
-           
-            <button className="btn pagination-prev-back ms-1" onClick={nextPage}>
+            {renderButtons}
+            <button className="btn pagination-prev-back ms-1" onClick={() => handlePageChange(currentPages + 1)} disabled={currentPages === totalPages - 1}>
               Next
             </button>
           </div>
         </div>
       </div>
-      {/* //////////////end///////////////// */}
+
       <Enquire />
-      <FlowerSubscribe />
-      <PaginationSidebar />
+      <React.Suspense fallback={<div>Loading....</div>}>
+        <FlowerSubscribeLazy />
+        <PaginationSidebarLazy />
+      </React.Suspense>
     </Layout4>
   );
-};
+});
 
 export default BlogNoSidebar;
-
-
-// import Head from 'next/head';
-// import React from 'react';
-// import BlogNoSidebarContain from './layout/Blog';
-// import { CommonPath } from '../Components/Constant';
-// import BreadCrumb from '../Components/Element/BreadCrumb';
-// import FlowerSubscribe from '../Components/FlowerDemo/FlowerSubscribe';
-// import Layout4 from '../Layout/Layout4';
-// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-// import Enquire from './layout/Enquire';
-// import PaginationSidebar from '../Components/Blog/BlogNoSider/PaginationSidebar';
-
-
-// export const getStaticProps = async ({ locale }) => ({ props: { ...(await serverSideTranslations(locale, ['common'])) } });
-
-// const BlogNoSidebar = () => {
-//   return (
-//     <Layout4>
-//       <Head>
-//       <title>Blogs - Unbox Industry</title>
-//         <meta name='viewport' content='width=device-width, initial-scale=1' />
-//         <link rel='icon' type='image/x-icon' href={`${CommonPath}/favicon/2.png`}alt="unboxLogo" />
-//         <link rel="canonical" href="https://www.unboxindustry.com/blogs" />
-//       </Head>
-//       <BreadCrumb parent={''} title={''} />
-//       <h1 className='text-center mt-1 mb-2' style={{fontSize:'30px'}}>Blogs</h1>
-//       <BlogNoSidebarContain />
-//       <Enquire/>
-//       <FlowerSubscribe />
-//       <PaginationSidebar/>
-//     </Layout4>
-//   );
-// };
-
-// export default BlogNoSidebar;

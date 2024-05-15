@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, lazy, Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { getStrapiMedia } from '../../../Utils/media';
 import AddToCartProduct from '../../Element/AddToCart';
@@ -11,12 +11,63 @@ import SkeletonLoader from '../../Element/SkeletonLoader';
 import { auth } from '../../../Config/firebase';
 import { width } from '@mui/system';
 import Image from 'next/image';
+import axios from 'axios';
 const AllProducts = ({ currentData }) => {
 
   const [user, setUser] = useState(null);
   const { symbol, currencyValue } = useSelector((state) => state.CurrencyReducer);
   const { initialGrid } = useSelector((state) => state.AllGridReducer);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+
+    // Fetch filtered data from Strapi
+    const fetchFilteredData = async () => {
+      try {
+        const response = await axios.get('/api/products', {
+          params: {
+            filters: {
+              title: {
+                $ne: 'dobots',
+              },
+            },
+            fields: [ 'product_name'],
+          },
+        });
+        setFilteredData(response.data.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching filtered data:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchFilteredData();
+  }, []);
+
+  
+  
+  
+  
+  
+  console.log(" testing filter feacthing ", filteredData);
+  
+  // const product = strapi.entityService.findMany('api::article.article', {
+  //   fields: ['title', 'product name'],
+  //   filters: {
+  //     title: {
+  //       $ne: 'universal robots'
+  //     },
+  //   },
+  // });
+
+  
+
   useEffect(() => {
 
     auth.onAuthStateChanged((user) => {
@@ -52,7 +103,7 @@ const AllProducts = ({ currentData }) => {
                       <div className='product-box'>
                         <div className='img-wrapper'><Link href={`/product/${elem.id}-${elem.attributes?.product_slug}`}>
                           <div className={`front`} key={i}  >
-                            <Image width={200} height={200} src={getStrapiMedia(elem.attributes.product_display)} className='bg-img' alt={elem.attributes.product_name} />
+                            <Image width={200} height={200} src={getStrapiMedia(elem.attributes.product_display)} className='bg-img' alt={elem.attributes.product_name} lazy />
                           </div>
                         </Link>
                           <div className='cart-wrap'>

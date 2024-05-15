@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { use, useEffect, useMemo, useState } from 'react';
 import Slider from 'react-slick';
 import Categories from '../Components/ElectronicDemo/Categories';
 import CategorizedProducts from '../Components/ElectronicDemo/Category/categorizedProducts';
@@ -25,7 +25,29 @@ import { fetchAPI } from '../Utils/api';
 import { getStrapiMedia } from '../Utils/media';
 import spring_boot_url from '../Utils/springApi';
 import Enquire from './layout/Enquire';
+//import connection from './testDbConnection';  
+
+//  const mysql = require('mysql');
+
 const cache = {};
+/// Or, if you want to execute the connection code during server-side rendering, you can import it in the getServerSideProps or getStaticProps functions:
+// to do tomomorow
+
+// const connection = mysql.createConnection({
+//   host: 'localhost:3306',
+//   user: 'root',
+//   password: 'root',
+//   database: 'testjavadb',
+// });
+
+// connection.connect((err) => {
+//   if (err) {
+//       console.error('error in connecting to db:-', err.stack);
+//       return;
+//   }
+//   console.log('connected to db successfully');
+// });
+
 
 export const getServerSideProps = async ({ locale }, props) => {
   // Check if the data is already cached
@@ -65,70 +87,7 @@ function Home(props) {
   const [dealsoftheday, setdealsoftheday] = useState(true);
   const [newarrivals, setnewarrivals] = useState(true);
   const [cobot, setcobot] = useState(true);
-
-  // useEffect(() => {
-
-  //   document.documentElement.style.setProperty('--theme-color', '#0163d2');
-  // fetchAPI(`/homepage`, {
-  //   populate: '*',
-  // }).then((res) => {
-  //   setData(res.data.attributes);
-
-  // });
-
- 
-
-
-  // fetchAPI(`/dealsofthedays`, {
-  //   populate: '*',
-  //   pagination: {
-  //     limit: -1,
-  //   },
-  // }).then((res) => {
-  //   setdealsoftheday(res.data);
-  // });
-
-
-
-  // fetchAPI(`/categories`, {
-  //   populate: '*',
-  //   pagination: {
-  //     limit: -1,
-  //   },
-  // }).then((res) => {
-  //   setCategory(res.data);
-  // });
-
-
-  // }, []);
-
-
-  // useEffect(() => {
-  //   auth.onAuthStateChanged(async (user) => {
-  //     setUser(user);
-  //     if (user && user.email) {
-  //       try {
-  //         const response = await axios.get(`${spring_boot_url}api/users/email?email=${user.email}`);
-  //         setuserDe(response.data);
-  //         // startTimer(); // Start the timer
-  //       } catch (error) {
-  //         console.error(error);
-  //       }
-  //     } else if (user && user.phoneNumber) {
-  //       let phoneNumberd = user.phoneNumber;
-  //       phoneNumberd = phoneNumberd.replace(/\+/g, "");
-  //       axios.get(`${spring_boot_url}api/users/phone?phoneNumber=${phoneNumberd}`)
-  //         .then(resp => {
-  //           console.log(resp.data.json);
-  //           localStorage.setItem("data", JSON.stringify(resp.data));
-  //           setuserDe(resp.data);
-  //           if (resp.data) {
-  //           }
-  //         });
-  //     }
-  //   });
-  // }, []);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try{
@@ -152,6 +111,14 @@ function Home(props) {
               const response = await axios.get(`${spring_boot_url}api/users/email?email=${user.email}`);
               setuserDe(response.data);
               // startTimer(); // Start the timer
+
+              //checking database connection
+                connection.on('connect', () => {
+                  console.log("connected to database");
+                });
+                connection.on('error', () => {
+                  console.log("error in connection database", err);
+                })
             } catch (error) {
               console.error(error);
             }

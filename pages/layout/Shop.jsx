@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import useFilter from '../../Utils/useFilter';
 import PaginationComp from '../../Components/Element/Pagination';
@@ -13,20 +13,36 @@ const ShopLeftSidebarContain = ({ productData, listGrid, products, fetchProducts
   const StoreProducts = filterProduct && filterProduct;
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage] = useState(20);
-  const indexOfLastPost = currentPage * dataPerPage;
+  const indexOfLastPost = currentPage * dataPerPage; 
   const indexOfFirstPost = indexOfLastPost - dataPerPage;
   const currentData = StoreProducts && StoreProducts?.slice(indexOfFirstPost, indexOfLastPost);
+  const [product, setProduct] = useState([]);
+
   const paginate = (pageNumber) => {
     const totalPages = Math.ceil(StoreProducts?.length / dataPerPage);
     if (pageNumber > 0 && pageNumber <= totalPages) {
       setCurrentPage(pageNumber);
     }
   };
+
+  // const fetchProducts = async (page = 1) => {
+  //   try {
+  //     // const response = await fetch(`https://fakestoreapi.com/products?limit=20&page=${page}`);
+  //     const response = await fetch(`api/products?limit=20&page=${page}`);
+  //     const data = await response.json();
+  //     setProduct(data);
+
+  //   } catch (error) {
+  //     console.log("errror in Shop in featching products", error);
+  //   }
+  // }
   const handlePageChange = (page) => {
     // Update the current page and fetch products for the new page
     setCurrentPage(page);
     fetchProducts(page);
   };
+
+  console.log("Shop page products", product);
   const totalPages = Math.ceil(productData / 20);
   return (
     <section className='section-b-space'>
