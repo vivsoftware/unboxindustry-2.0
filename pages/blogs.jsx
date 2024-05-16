@@ -2,17 +2,16 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PaginationSidebar from '../Components/Blog/BlogNoSider/PaginationSidebar';
 import { CommonPath } from '../Components/Constant';
 import BreadCrumb from '../Components/Element/BreadCrumb';
 import FlowerSubscribe from '../Components/FlowerDemo/FlowerSubscribe';
 import Layout4 from '../Layout/Layout4';
-import { fetchAPI } from '../Utils/api';
 import BlogNoSidebarContain from './layout/Blog';
 import Enquire from './layout/Enquire';
 
-
+import axios from 'axios';
 export const getStaticProps = async ({ locale }) => ({ props: { ...(await serverSideTranslations(locale, ['common'])) } });
 
 const BlogNoSidebar = (context) => {
@@ -24,20 +23,58 @@ const BlogNoSidebar = (context) => {
   const [totalproducts, settotalproducts] = useState();
   const [lastpage, setlastpage] = useState();
 
-  useEffect(() => {
-    fetchAPI(`/blogs`, {
-      populate: "*",
-      pagination: {
-        start: 0,
-        limit: -1,
-      },
-    }).then((res) => {
-      console.log(res)
-      settotalproducts(res.data.length);
-      setlastpage(Math.floor(res.data.length / 6) + 1)
+  const [loading, setLoading] = useState(true);
 
-    });
+
+
+
+  const fetchAPI = useCallback(async (endpoint, options) => {
+    try {
+      const response = await axios.get(endpoint, { params: options });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const res = await fetchAPI(`/blogs`, {
+        populate: "*",
+        pagination: {
+          start: 0,
+          limit: -1, // Fetch a smaller subset initially
+        },
+      });
+
+      if (res) {
+        console.log(res);
+        settotalproducts(res.data?.length);
+        setlastpage(Math.floor(res.data?.length / 6) + 1);
+      }
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [fetchAPI]);
+
+
+
+  // useEffect(() => {
+  //   fetchAPI(`/blogs`, {
+  //     populate: "*",
+  //     pagination: {
+  //       start: 0,
+  //       limit: -1,
+  //     },
+  //   }).then((res) => {
+  //     console.log(res)
+  //     settotalproducts(res.data.length);
+  //     setlastpage(Math.floor(res.data.length / 6) + 1)
+
+  //   });
+  // }, []);
   
   ///////////////changes//////////////
   let items = [];
