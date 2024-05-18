@@ -7,12 +7,15 @@ const AdminUser = () => {
     <>
     <div className='d-none d-xl-block d-md-block d-sm-none'>
       <div className='cart-icon'>
-        <User />
+        <User /> 
+        {/* <p style={{paddingTop: "1px", paddingLeft: "16px"}}>Login Now</p>  */}
+
       </div>
       </div>
       <div className='d-block d-xl-none d-md-none d-sm-block'>
       <div className='cart-icon'>
-        <User style={{color:'white'}}/>
+        <User style={{color:'white'}} h/>
+
       </div>
       </div>
     </>

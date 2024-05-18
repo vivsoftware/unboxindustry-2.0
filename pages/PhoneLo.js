@@ -169,7 +169,8 @@ const PhoneLog = () => {
                           {isTimerActive ? (
                             <span>
                               {ErrorMsg === ErrorMsg2 ? (
-                                <a style={{ color: 'red' }} onClick={resendOTP}>Invalid OTP</a>
+                                
+                                <button style={{ color: 'red' }} onClick={resendOTP}>Invalid OTP</button>
                               ) : (
                                 <span style={{ color: 'red' }}>Resend OTP in {timer} seconds</span>
                               )}
@@ -177,26 +178,26 @@ const PhoneLog = () => {
                           ) : (
                             <span>
                               {ErrorMsg === ErrorMsg2 ? (
-                                <a style={{ color: 'red' }} onClick={resendOTP}>Invalid OTP</a>
+                                <button style={{ color: 'red', paddingTop: '4px' ,marginTop: '-10px', borderColor: 'white'}} onClick={resendOTP}>Invalid OTP</button>
                               ) : (
-                                <span style={{ color: 'red' }} onClick={resendOTP}>Resend OTP</span>
+                                <button style={{ color: 'red', paddingTop: '4px' ,marginTop: '-10px', borderColor: 'white'}} onClick={resendOTP}>Resend OTP</button>
                               )}
                             </span>
                           )}
                           {isProcessing ? (
                             <LinearProgress className="custom-progress-bar" /> // Display processing bar
                           ) : (
-                            <button type="submit" className="btn login_btn" onClick={verifyOTP}>Log In</button>
+                            <button type="submit" className="btn login_btn" style={{marginTop: "10px"}} onClick={verifyOTP}>Log In</button>
                           )}
                         </div>
                       </>
-                    )}
+                    )}                            
                     {!expandform && (
                       <button type="submit" className="btn login_btn" onClick={requestOTP}>Request OTP</button>
                     )}
                     <div class="mb-3 form-check">
                     </div>
-                    <p className='text-center' >or</p>
+                    <p className='text-center'style={{marginTop: "-40px"}} >or</p>
 
                     <button onClick={phoneloginopen} type="submit" class="btn login_btn">LogIn with Email</button>
                     <Link legacyBehavior href="/sign-up"><p className='text-center' style={{ marginTop: '10px' }}>Don't have an account? <a className='login-register fw-bold' href="/page/Register">SignUp Now</a></p></Link>

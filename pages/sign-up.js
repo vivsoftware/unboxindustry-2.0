@@ -179,14 +179,14 @@ const Register = () => {
                           {errorMsg ? (
                             <a style={{ color: 'red' }} onClick={resendOTP}>Invalid OTP</a>
                           ) : (
-                            <span style={{ color: 'red' }} onClick={resendOTP}>Resend OTP</span>
+                            <button style={{ color: 'red', paddingTop: '4px' ,marginTop: '-10px', borderColor: 'white'}} onClick={resendOTP}>Resend OTP</button>
                           )}
                         </span>
                       )}
                        {isProcessing ? (
                           <LinearProgress className="custom-progress-bar"/> // Display processing bar
                         ) : (
-                          <button type="submit" className="btn login_btn" onClick={verifyOTP}>Sign Up</button>
+                          <button type="submit" className="btn login_btn" style={{marginTop: "10px"}} onClick={verifyOTP}>Sign Up</button>
                         )}
                       {/* <button type="submit" className="btn login_btn" onClick={verifyOTP}>
                         Sign Up
