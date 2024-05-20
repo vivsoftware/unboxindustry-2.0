@@ -149,6 +149,10 @@ const BlogNoSidebar = (context) => {
     setCurrentPage(pageNumber);
   };
 
+  // const handlePageChange = (pageNumber) => {
+  //   router.push(`/blogs?page=${pageNumber}`);
+  //   setCurrentPage(pageNumber);
+  // };
   const itemsPerPage = 6; // Adjust this based on your desired items per page
 
   const totalItems = totalproducts;
@@ -157,10 +161,10 @@ const BlogNoSidebar = (context) => {
     const buttons = [];
     const totalPagesToShow = 3; // Change this value to control how many page buttons to show at a time
 
-    for (let i = currentPages; i < currentPages + totalPagesToShow; i++) {
+    for (let i = currentPages; i < currentPages + totalPagesToShow; ++i) {
       buttons.push(
         <button
-          key={i + 1}
+          key={i+1}
           className={`btn pagination-prev-back ms-1 ${currentPages === i ? 'active' : ''}`}
           onClick={() => pageClick(i)}
         >
@@ -171,7 +175,8 @@ const BlogNoSidebar = (context) => {
 
     return buttons;
   };
-  ///////////////////end/////////////
+
+  
 
   const { locale, query } = context;
   const page = parseInt(query?.page) || 0; // Get the page from the query parameters
@@ -201,19 +206,22 @@ console.log("dfhdjhf",query);
             <button className="btn pagination-prev-back ms-1" onClick={backPage} disabled={currentPages === 0}>
               Prev
             </button>
-            <button className="btn pagination-prev-back ms-1" onClick={pageOne} >
+            {/* <button className="btn pagination-prev-back ms-1" onClick={pageOne} >
               1
             </button>
             <button className="btn pagination-prev-back ms-1" onClick={pageTwo} >
               2
-            </button>
-            <span className='ms-1'>....</span>
+            </button> */}
+            {/* <span className='ms-1'>....</span> */}
             {currentPages > 2 && (
               <button className="btn pagination-prev-back ms-1" onClick={() => pageClick(currentPages)}>
                 {currentPages}
               </button>
             )}
             {renderButtons()}
+            <span className='ms-1'>....</span>
+
+
            
             <button className="btn pagination-prev-back ms-1" onClick={nextPage}>
               Next
@@ -230,39 +238,3 @@ console.log("dfhdjhf",query);
 };
 
 export default BlogNoSidebar;
-
-
-// import Head from 'next/head';
-// import React from 'react';
-// import BlogNoSidebarContain from './layout/Blog';
-// import { CommonPath } from '../Components/Constant';
-// import BreadCrumb from '../Components/Element/BreadCrumb';
-// import FlowerSubscribe from '../Components/FlowerDemo/FlowerSubscribe';
-// import Layout4 from '../Layout/Layout4';
-// import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-// import Enquire from './layout/Enquire';
-// import PaginationSidebar from '../Components/Blog/BlogNoSider/PaginationSidebar';
-
-
-// export const getStaticProps = async ({ locale }) => ({ props: { ...(await serverSideTranslations(locale, ['common'])) } });
-
-// const BlogNoSidebar = () => {
-//   return (
-//     <Layout4>
-//       <Head>
-//       <title>Blogs - Unbox Industry</title>
-//         <meta name='viewport' content='width=device-width, initial-scale=1' />
-//         <link rel='icon' type='image/x-icon' href={`${CommonPath}/favicon/2.png`}alt="unboxLogo" />
-//         <link rel="canonical" href="https://www.unboxindustry.com/blogs" />
-//       </Head>
-//       <BreadCrumb parent={''} title={''} />
-//       <h1 className='text-center mt-1 mb-2' style={{fontSize:'30px'}}>Blogs</h1>
-//       <BlogNoSidebarContain />
-//       <Enquire/>
-//       <FlowerSubscribe />
-//       <PaginationSidebar/>
-//     </Layout4>
-//   );
-// };
-
-// export default BlogNoSidebar;

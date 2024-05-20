@@ -2,9 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/login": "pages/login.js",
   "/": "pages/index.js",
-  "/sign-up": "pages/sign-up.js",
-  "/signupform": "pages/signupform.js",
-  "/user_dashboard": "pages/user_dashboard.js"
+  "/blogs": "pages/blogs.js"
 }
