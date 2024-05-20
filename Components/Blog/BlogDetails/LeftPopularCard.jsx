@@ -11,35 +11,45 @@ const LeftPopularCard = ({ products, categories }) => {
 const data =[]
   
 console.log("PopularPost", products);
+
   return (
     <>
-    <Carousel className='home-page' indicators={true} prevIcon={null} nextIcon={null}>
+    <Carousel className='home-page1' style={{position: "relative", width: "300px", overflow: "hidden" }} indicators={true} prevIcon={null} nextIcon={null}>
       {PopularPost?.map((url, index) => (
-        <Carousel.Item key={index} interval={800}>
+        <Carousel.Item key={index} interval={1000}>
             <Image 
               src={url.image}
-              width={200}
-              height={200}
-              style={{border: "1px solid black"}}
-              className="main-sliderImage"
+              width={150}
+              height={170}
+              // style={{border: "0.5px solid black"}}
+              className="main-sliderImage1"
               alt='product'
             />
             <p>{url.description}</p>
              <Image 
               src={url.image}
-              width={200}
-              height={200}
-              style={{border: "1px solid black"}}
-              className="main-sliderImage"
+              width={150}
+              height={150}
+              // style={{border: "0.5px solid black"}}
+              className="main-sliderImage1"
               alt='product'
             />
             <p>{url.description}</p>
              <Image 
               src={url.image}
-              width={200}
-              height={200}
-              style={{border: "1px solid black"}}
-              className="main-sliderImage"
+              width={150}
+              height={150}
+              // style={{border: "0.5px solid black"}}
+              className="main-sliderImage1"
+              alt='product'
+            />
+            <p>{url.description}</p>
+            <Image 
+              src={url.image}
+              width={150}
+              height={150}
+              // style={{border: "0.5px solid black"}}
+              className="main-sliderImage1"
               alt='product'
             />
             <p>{url.description}</p>

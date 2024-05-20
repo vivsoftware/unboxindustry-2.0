@@ -1,7 +1,3 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
-import Modal from '@mui/material/Modal';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -40,8 +36,8 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
         pagination: {
           start: `${pageNumber * limit}`,  //offset
           limit: limit,
-       },
-       sort: 'createdAt:desc' // changes sort by creation date in descending order
+        },
+        sort: 'createdAt:desc' // changes sort by creation date in descending order
       },
         {
           encodeValuesOnly: true, // prettify URL
@@ -49,26 +45,26 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
       setData(imgUrl.data);
     }
     fetchData();
-}, [start,pageNumber]);  //changes for changing pages data (Include start and pageNumber in the dependency array)
+  }, [start, pageNumber]);  //changes for changing pages data (Include start and pageNumber in the dependency array)
 
-useEffect(() => {
-  async function fetchDatabase() {
-    try {
-      const imgUrlBanner = await fetchAPI(`/blogbanners`, {
-        populate: '*', // Assuming '*' is a valid option for fetching all fields
-      }, {
-        encodeValuesOnly: true, // Prettify URL
-      });  
-      setbannerouter(imgUrlBanner.data);
-    } catch (error) {
-      // Handle any errors from the fetchAPI call
-      console.error("Error fetching banner data:", error);
+  useEffect(() => {
+    async function fetchDatabase() {
+      try {
+        const imgUrlBanner = await fetchAPI(`/blogbanners`, {
+          populate: '*', // Assuming '*' is a valid option for fetching all fields
+        }, {
+          encodeValuesOnly: true, // Prettify URL
+        });
+        setbannerouter(imgUrlBanner.data);
+      } catch (error) {
+        // Handle any errors from the fetchAPI call
+        console.error("Error fetching banner data:", error);
+      }
     }
-  }
-  fetchDatabase(); // Call the async function
-  // Since the dependency array is empty, this effect only runs once after the component mounts
-}, []);
- //changes for changing pages data (Include start and pageNumber in the dependency array)
+    fetchDatabase(); // Call the async function
+    // Since the dependency array is empty, this effect only runs once after the component mounts
+  }, []);
+  //changes for changing pages data (Include start and pageNumber in the dependency array)
   if (!data) {
     return <SkeletonLoader />;
   }
@@ -78,7 +74,7 @@ useEffect(() => {
     dots: true,
     arrows: false
   };
-  const handleLoad= (elem)=>{
+  const handleLoad = (elem) => {
     setload(true)
     handleOpen()
     router.push(`/blog/${elem.id}-${elem.attributes.blog_slug}`);
@@ -91,10 +87,10 @@ useEffect(() => {
           {bannerouter.map((elem) => (
             <div key={elem.id} className="slider-item">
               <div className="row">
-      <Link onClick={() => handleLoad(elem) } href="">
-{/* <Link onClick={handleLoad=()=>  {elem}} href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}> */}
-  <Img  src={getStrapiMedia(elem.attributes.banner)} className='card-img-top' alt={elem.attributes.title} height={500} width={400}  />
-</Link>
+                <Link onClick={() => handleLoad(elem)} href="">
+                  {/* <Link onClick={handleLoad=()=>  {elem}} href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}> */}
+                  <Img src={getStrapiMedia(elem.attributes.banner)} className='card-img-top' alt={elem.attributes.title} height={500} width={400} />
+                </Link>
                 {/* <div className='col-4'>                               
                 </div>
                 <div className='col-6' style={{ marginTop: '100px' }}>
@@ -115,8 +111,8 @@ useEffect(() => {
             <div key={elem.id} className="slider-item">
               <div className="row">
                 <div className='col-12'>
-                  { load}
-                  <Link onClick={() => handleLoad(elem) } href="">
+                  {load}
+                  <Link onClick={() => handleLoad(elem)} href="">
                     <Img src={getStrapiMedia(elem.attributes.image)} className='card-img-top mt-2' height={500} width={400} alt={elem.attributes.title} />
                   </Link>
                 </div>
@@ -137,7 +133,7 @@ useEffect(() => {
             <Col lg='4' md='6' key={elem.id}>
               <Card className='blog-categority'>
                 {/* <Link href={'/blog/blog_details'} className='blog-img'> */}
-                <Link onClick={() => handleLoad(elem) } href="">
+                <Link onClick={() => handleLoad(elem)} href="">
                   <Img src={getStrapiMedia(elem.attributes.image)} className='img-fluid' alt={elem.attributes.title} />
                 </Link>
                 <CardBody>
@@ -158,21 +154,7 @@ useEffect(() => {
           );
         })}
       </Row>
-  <div>
-    <Button onClick={handleOpen}>Open modal</Button>
-    <Modal
-      open={open}
-      // onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-      <Box style={{marginLeft: "10px" ,paddingLeft: "80px"}} >
-      <CircularProgress style={{width: "100px", height: "84", color: "#ff8400"}}  />
-    </Box>       
-      </Box>
-    </Modal>
-  </div>
+    
     </>
   );
 };
