@@ -8,6 +8,7 @@ export const PopularPost = [
     title1: 'News',
     time: '2m ago',
     views: ' 8596',
+    image: "https://strapi.unboxindustry.com/uploads/UNITRE_3_removebg_preview_ef9d6cc5ce.png",
   },
   {
     id: 2,
@@ -18,6 +19,8 @@ export const PopularPost = [
     title1: 'News',
     time: '55m ago',
     views: ' 9999',
+    image: "https://strapi.unboxindustry.com/uploads/UNITRE_3_removebg_preview_ef9d6cc5ce.png",
+
   },
   {
     id: 3,
@@ -28,6 +31,8 @@ export const PopularPost = [
     title1: 'News',
     time: '3h ago',
     views: ' 5289',
+    image: "https://strapi.unboxindustry.com/uploads/UNITRE_3_removebg_preview_ef9d6cc5ce.png",
+
   },
   {
     id: 4,
@@ -38,6 +43,8 @@ export const PopularPost = [
     title1: 'News',
     time: '8h ago',
     views: ' 3698',
+    image: "https://strapi.unboxindustry.com/uploads/UNITRE_3_removebg_preview_ef9d6cc5ce.png",
+
   },
 ];
 export const CategoryPopular = [

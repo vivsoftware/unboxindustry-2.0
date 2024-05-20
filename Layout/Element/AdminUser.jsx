@@ -7,7 +7,8 @@ const AdminUser = () => {
     <>
     <div className='d-none d-xl-block d-md-block d-sm-none'>
       <div className='cart-icon'>
-        <User />
+        <User /> 
+        <span><p style={{fontSize: "14px", paddingLeft: "4px", paddingTop: "8px"}}>Login Now</p></span>
       </div>
       </div>
       <div className='d-block d-xl-none d-md-none d-sm-block'>

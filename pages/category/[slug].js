@@ -1,16 +1,15 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import Layout4 from '../../Layout/Layout4';
-import { fetchAPI } from '../../Utils/api';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import BreadCrumb from '../../Components/Element/BreadCrumb';
-import ShopLeftSidebarContain from '../layout/Shop';
 import FlowerSubscribe from '../../Components/FlowerDemo/FlowerSubscribe';
 import CanvasOffset from '../../Components/Shop/ShopCanvasFilter/CanvasOffset';
+import Layout4 from '../../Layout/Layout4';
 import { getAPIData } from '../../Utils';
+import { fetchAPI } from '../../Utils/api';
 import Enquire from '../layout/Enquire';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import ShopLeftSidebarContain from '../layout/Shop';
 const productByBrands = (props) => {
   const router = useRouter();
   const { slug } = router.query;
@@ -30,6 +29,7 @@ const productByBrands = (props) => {
     router.push(`/category?page=${nextPage}`);
     setCurrentPage(nextPage - 1)
   };
+
   useEffect(()=>{
     const types = ['products'];
     types.map((type) => {
@@ -47,6 +47,8 @@ const productByBrands = (props) => {
         setProducts(res.data.attributes.products?.data)
     })
 },[router])
+
+
   return (
     <Layout4>
       <Head>

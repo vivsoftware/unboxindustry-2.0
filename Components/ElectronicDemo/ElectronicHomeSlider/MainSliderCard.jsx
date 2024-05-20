@@ -1,9 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { getStrapiMedia } from '../../../Utils/media';
-//import Image from 'next/image';
-//implementing lazy load.
-const LazyImg = lazy(() => import('next/image'));
+import Image from 'next/image';
+//unimplementing lazy load.
+// const LazyImg = lazy(() => import('next/image'));
 const MainSliderCard = (ElectronicSliderFilter) => {
  
   const imgData = getStrapiMedia(ElectronicSliderFilter.ElectronicSliderFilter.mainSlider);
@@ -15,15 +15,15 @@ const MainSliderCard = (ElectronicSliderFilter) => {
             <Carousel.Item key={index} interval={800}>
               {/* <Img src={url} className="main-sliderImage" /> */}
               {/* <Image src={url} width={1300} height={300} className="main-sliderImage" alt='Unbox-Banner' /> */}
-              <Suspense fallback={<div>Loading....</div>}>
-                <LazyImg  
+            
+                <Image 
                   src={url}
                   width={1300}
                   height={300}
                   className="main-sliderImage"
                   alt='Unbox-Banner'
                 />
-              </Suspense>
+              
             </Carousel.Item>
           ))}
           {/* <Carousel.Item  interval={800}>
