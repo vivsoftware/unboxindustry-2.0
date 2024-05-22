@@ -820,8 +820,8 @@ p {
     }
 
     .main-sliderImage {
-        width: 100%;
-        height: 100%;
+        width: 200px;
+        height: 200px;
     }
 
     .degree-section .details-image {
@@ -1179,7 +1179,6 @@ p {
     .home-page {
         margin-left: auto;
         margin-right: auto;
-
     }
 
     .about-brand {
@@ -2191,7 +2190,8 @@ textarea {
     background-repeat: no-repeat;
     background-attachment: fixed;
     width: 100%;
-    height: 700px;
+    height: 290px;
+    // height: 700px;
     background-size: cover;
 
 }
@@ -2200,21 +2200,21 @@ textarea {
 .blog-page1 {
     background-color: #ffffff;
     width: 1900px;
-    height: 1000px;
+    height: 560px;
     background-size: 1900px 900px;
 }
 
 .blog-heading2 {
     text-align: center;
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 //////div4////
 .blog-page2 {
     background-color: #FF8400;
     width: 1900px;
-    height: 550px;
-    margin-top: 150px;
+    height: 350px;
+    margin-top: 40px;
     //display: flex;
 }
 
@@ -2227,11 +2227,12 @@ textarea {
 }
 
 .blog-image {
-    margin-top: -633px;
+    margin-top: -380px;
+    margin-left: 150px;
     margin-left: 150px;
     //margin-left: 140px;
-    width: 460px;
-    height: 710px;
+    width: 300px;
+    height: 400px;
     border: 0.8px solid black;
 }
 
@@ -2241,7 +2242,7 @@ textarea {
 
 
 .sidebar {
-    width: 3000px;
+    //width: 300px;
     // height: 1200px;
     // margin-left: 1200px;
     padding-left: 100px;
@@ -2252,7 +2253,7 @@ textarea {
 .description-span {
     //margin-left: 350px;
     // margin-left: 60px;
-    width: 1000px;
+    width: 1300px;
     padding-left: 40px;
     // margin-right: 1000px;
     padding-right: -600px;
@@ -2267,7 +2268,7 @@ textarea {
     width: 570px;
     height: 510px;
     //margin-left: 700px;
-    margin-left: 60px;
+    margin-left: 340px;
     border: 0.8px solid black;
 }
 
@@ -2277,6 +2278,7 @@ textarea {
     grid-template-columns: auto auto;
     /* Two columns */
     grid-gap: 20px;
+     width:600px
 }
 
 .description-column {
@@ -2289,16 +2291,50 @@ textarea {
     /* Adjust spacing between description items */
 }
 
-.sidebar-container {
-    width: 80px;
-    padding-left: 20px;
-    /* Additional styling for the sidebar container */
-}
+// .sidebar-container {
+//     width: 80px;
+//     padding-left: 20px;
 
+.sidebar-container {
+    width: 380px;
+    margin-top: 70px; /* Ensure this matches the original width */
+    margin-left: 200px;
+    // border: #111 2px solid;
+    
+  }
+  
+  .sidebar-fixed {
+    position: fixed;
+    top: 40%; /* Adjust this value if you have a header */
+    left: 60%; 
+    //width: inherit; /* Ensure the fixed sidebar retains its original width */
+    z-index: 1000; /* Optional: Ensures the sidebar stays on top */
+    width: 800px;
+    margin-top: 100px; /* Ensure this matches the original width */
+    margin-left: 380px;
+    // display: none;
+
+  }
+
+  #addImg{
+    border: 2px solid black;
+  }
+
+  .main-sliderImage1 {
+    width: 150px;
+    height: 150px;
+}
 // }
 //////changes end///
 
 
+// /* For mobile screens */
+// @media only screen and (min-width: 300px) and (max-width: 640px) { 
+//     .blog-pagemobile {
+//         background-color: #ffffff;
+//         position: sticky;
+//         display: none;
+//     }
 // /* For mobile screens */
 // @media only screen and (min-width: 300px) and (max-width: 640px) { 
 //     .blog-pagemobile {
@@ -2517,10 +2553,223 @@ textarea {
 
 
 /* Styles for mobile (max-width: 767px) */
+//@media (max-width: 767px) {
+   // .blog-page {
+//     #blog-mobile {
+//         background-color: #ffffff;
+//         position: sticky;
+//         display: block;
+//     }
+
+//     .blogg-pagemobile {
+//         /* background-image: url("${getStrapiMedia(banner_image)}"); */
+//         background-repeat: no-repeat;
+//         background-attachment: fixed;
+//         width: 100%;
+//         height: 300px;
+//         /* Adjust height as needed */
+//         background-size: cover;
+//         //display: block;
+//         position: sticky;
+//         display: none;
+//     }
+
+//     #blogg-mobile {
+//         /* background-image: url("${getStrapiMedia(banner_image)}"); */
+//         background-repeat: no-repeat;
+//         background-attachment: fixed;
+//         width: 100%;
+//         height: 300px;
+//         /* Adjust height as needed */
+//         background-size: cover;
+//         position: sticky;
+//         display: block;
+//     }
+
+//     .blog-page1mobile {
+//         background-color: #ffffff;
+//         // width: 100%;
+//         display: none;
+//     }
+
+//     #page1-mobile {
+//         background-color: #ffffff;
+//         width: 50px; //revome scroler
+//         height: auto;
+//         /* Adjust height as needed */
+//         background-size: cover;
+//         position: sticky;
+//         display: block;
+//     }
+
+//     .blog-heading2mobile {
+//         display: none;
+
+//     }
+
+//     #heading2-mobile {
+//         text-align: center;
+//         padding-top: 20px;
+//         font-size: 18px;
+//         position: sticky;
+//         display: block;
+//     }
+
+//     .blog-page2mobile {
+//         background-color: #ff8400;
+//         /* width: 100%; */
+//         width: 200px; //that yellow width
+//         height: auto;
+//         margin-top: 20px;
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         position: sticky;
+//         display: none;
+//     }
+
+//     #page2-mobile {
+//            /* width: 100%; */
+//            width: 200px; //that yellow width
+//            height: auto;
+//            margin-top: 20px;
+//         //    display: flex;
+//            flex-direction: column;
+//            align-items: center;
+//            position: sticky;
+//            display: block;
+//     }
+
+//     .blog-heading3mobile {
+//         margin-left: -700px;
+//         padding-top: 10px;
+//         padding-bottom: 10px;
+//         font-size: 10px;
+//         text-align: center;
+//         position: sticky;
+//         display: none;
+//     }
+
+//     #heading3-mobile {
+//         margin-left: -700px;
+//         padding-top: 10px;
+//         /* Adjust padding as needed */
+//         padding-bottom: 10px;
+//         //padding-bottom: 20px;
+//         font-size: 10px;
+//         /* Adjust font size as needed */
+//         text-align: center;
+//         position: sticky;
+//         display: block;
+//     }
+
+//     .blog-imagemobile {
+//         margin-top: -220px;
+//         margin-left: 20px;
+//         width: 80%;
+//         height: auto;
+//         border: 0.8px solid black;
+//         position: sticky;
+//         width: 150px;
+//         height: 250px;
+//         display: none;
+//     }
+
+//     #image-mobile {
+//         margin-top: -220px;
+//         margin-left: 20px;
+//         width: 80%;
+//         height: auto;
+//         border: 0.8px solid black;
+//         position: sticky;
+//         width: 150px;
+//         height: 250px;
+//         display: block;
+//     }
+
+//     .descriptionmobile {
+//         width: 400px;
+//         text-align: justify;
+//         display: none;
+//     }
+
+//     #description1mobile {
+//         // width: 1200px;
+//         width: 100px;
+//         text-align: justify;
+//         display: block;
+//     }
+
+//     .description-spanmobile {
+//         margin-right: 10px;
+//         padding-right: 100px;
+//         text-align: justify;
+//         font-size: 10px;
+//         padding-left: -1px;
+//         display: none;
+//     }
+
+//     #description-span1mobile {
+//         margin-right: 10px;
+//         padding-right: 50px;
+//         text-align: justify;
+//         font-size: 10px;
+//         padding-left: 20px;
+//         display: block;
+
+//     }
+
+//     .image-classmobile {
+//         margin-top: 20px;
+//         width: 300px;
+//         height: auto;
+//         border: 0.8px solid black;
+//         position: sticky;
+//         margin-right: 10px;
+//         padding-left: -1px;
+//         display: none;
+//     }
+
+//     #image-class1mobile {
+//         margin-top: 20px;
+//         border: 0.8px solid black;
+//         position: sticky;
+//         margin-right: 10px;
+//         padding-left: -1px;
+//         display: block;
+//     }
+
+//       .sidebarmobile {
+//         padding-left: -300px;
+//         position: sticky;
+//         padding: 6px;
+//         padding-top: 500px;
+//         width: 300px;
+//         margin-left: 20px;
+//         margin-right: 10px;
+//         text-align: justify;
+//         font-size: 10px;
+//        display: none;
+//     }
+
+//     #sidebar1mobile{
+//         position: sticky;
+//         padding-top: 500px;
+//         width: 300px;
+//         text-align: justify;
+//         font-size: 10px;
+//         display: block;
+//     }
+// 
+//    }
+
+
+/* Styles for mobile (max-width: 767px) */
 @media (max-width: 767px) {
     .blog-page {
         background-color: #ffffff;
         position: sticky;
+        // display: none;
         // display: none;
     }
 
@@ -2533,16 +2782,27 @@ textarea {
         background-size: cover;
         position: sticky;
         // display: none;
+        // display: none;
     }
 
 
     .blog-page1 {
         background-color: #ffffff;
-        width: 60px 
+        width: 60px ;
+        width: 60px ;
         // width: 100%;
+        // display: none;
         // display: none;
     }
 
+    .blog-heading2 {
+        // display: none;
+        margin-left: 160px;
+        font-size: 25px;
+    }
+
+
+    
     .blog-heading2 {
         // display: none;
         margin-left: 160px;
@@ -2554,6 +2814,7 @@ textarea {
         background-color: #ff8400;
         /* width: 100%; */
         width: 400px; //that yellow width
+        width: 400px; //that yellow width
         height: auto;
         margin-top: 20px;
         display: flex;
@@ -2561,9 +2822,11 @@ textarea {
         align-items: center;
         position: sticky;
         // display: none;
+        // display: none;
     }
 
 
+    
     .blog-heading3 {
         margin-left: -550px;
         padding-top: 10px;
@@ -2572,11 +2835,14 @@ textarea {
         text-align: center;
         position: sticky;
         // display: none;
+        // display: none;
     }
 
 
+    
     .blog-image {
         margin-top: -220px;
+        margin-left: 10px;
         margin-left: 10px;
         width: 80%;
         height: auto;
@@ -2585,21 +2851,30 @@ textarea {
         width: 150px;
         height: 250px;
         // display: none;
-    }
-
-
-    .description {
-        width: 400px;
-        text-align: justify;
         // display: none;
     }
 
 
+    
+    .description {
+        width: 400px;
+        text-align: justify;
+        // display: none;
+        // display: none;
+    }
+
+
+    
     .description-span {
         width: 400px;
         margin-right: 10px;
         padding-right: 30px;
+        padding-right: 30px;
         text-align: justify;
+        font-size: 15px;
+        padding-left: 30px;
+        margin-top: -10px;
+        // display: none;
         font-size: 15px;
         padding-left: 30px;
         margin-top: -10px;
@@ -2607,8 +2882,10 @@ textarea {
     }
 
 
+    
     .image-class {
         margin-top: 20px;
+        width: 250px;
         width: 250px;
         height: auto;
         border: 0.8px solid black;
@@ -2616,7 +2893,27 @@ textarea {
         margin-right: 10px;
         padding-left: -1px;
         // display: none;
+        // display: none;
     }
+
+    .description-column {
+        order: 2;
+    }
+
+    .grid-container {
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: 1fr;
+        width: 200px;
+    }
+
+    // .description-item {
+    //     display: flex;
+    //     flex-direction: column;
+    //     margin-bottom: 20px; /* Adjust the margin as needed */
+    //   }
+
+
 
     .description-column {
         order: 2;
@@ -2642,21 +2939,23 @@ textarea {
         padding: 6px;
         // padding-top: -800px;
         margin-top: -600px;
-        width: 300px;
+        width: 100px;
         margin-left: 20px;
         margin-right: 10px;
         text-align: justify;
         font-size: 10px;
         order: 1;
-
-        ////changes start//////
-        // position: relative;
-        // top: 500px;
-        // left: 240px;
-        /////changes end//////
-
     }
+
+    // .sidebar-fixed {
+    //     position: fixed;
+    //     top: 40%; /* Adjust this value if you have a header */
+    //     left: 10%;
+    //     width: inherit; /* Ensure the fixed sidebar retains its original width */
+    //     z-index: 1000; /* Optional: Ensures the sidebar stays on top */
+    //   } 
 }
+
 
 
 // .grid-container {
@@ -2706,6 +3005,8 @@ textarea {
         /* Adjust font size for desktop */
     }
 }
+
+
 
 
 
