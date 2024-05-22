@@ -89,7 +89,7 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
               <div className="row">
                 <Link onClick={() => handleLoad(elem)} href="">
                   {/* <Link onClick={handleLoad=()=>  {elem}} href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}> */}
-                  <Img src={getStrapiMedia(elem.attributes.banner)} className='card-img-top' alt={elem.attributes.title} height={500} width={400} />
+                  <Img src={getStrapiMedia(elem.attributes.banner)} className='card-img-top' alt={elem.attributes.title} height={100} width={100} />
                 </Link>
                 {/* <div className='col-4'>                               
                 </div>
@@ -109,11 +109,11 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
         <Slider {...settings} className=' mb-5' style={{ marginTop: '0px' }}>
           {data.map((elem) => (
             <div key={elem.id} className="slider-item">
-              <div className="row">
+              <div className="row" >
                 <div className='col-12'>
-                  {load}
+                  {/* {load} */}
                   <Link onClick={() => handleLoad(elem)} href="">
-                    <Img src={getStrapiMedia(elem.attributes.image)} className='card-img-top mt-2' height={500} width={400} alt={elem.attributes.title} />
+                    <Img  src={getStrapiMedia(elem.attributes.image)} className='card-img-top mt-2' height={500} width={400} alt={elem.attributes.title} />
                   </Link>
                 </div>
                 {/* <div className='col-8' style={{marginTop:'50px'}}>
@@ -134,7 +134,7 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
               <Card className='blog-categority'>
                 {/* <Link href={'/blog/blog_details'} className='blog-img'> */}
                 <Link onClick={() => handleLoad(elem)} href="">
-                  <Img src={getStrapiMedia(elem.attributes.image)} className='img-fluid' alt={elem.attributes.title} />
+                <Img  src={getStrapiMedia(elem.attributes.image)} className='card-img-top mt-2' height={300} width={300} alt={elem.attributes.title} />
                 </Link>
                 <CardBody>
                   <h5>{elem.title}</h5>
