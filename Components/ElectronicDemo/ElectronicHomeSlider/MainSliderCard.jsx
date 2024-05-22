@@ -7,6 +7,7 @@ const LazyImg = lazy(() => import('next/image'));
 const MainSliderCard = (ElectronicSliderFilter) => {
  
   const imgData = getStrapiMedia(ElectronicSliderFilter.ElectronicSliderFilter.mainSlider);
+  
 
   return (
     <>

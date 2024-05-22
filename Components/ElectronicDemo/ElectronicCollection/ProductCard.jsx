@@ -125,6 +125,7 @@ import { getStrapiMedia } from "../../../Utils/media";
 import SkeletonLoader from "../../Element/SkeletonLoader";
 import PropTypes from "prop-types";
 import Link from "next/link"; // Import Link using ES6 import syntax
+import ImageSkeletonLoader from "../../Element/SkeletonLoaderCat";
 
 const LazyImg = lazy(() => import("next/image"));
 
@@ -178,7 +179,7 @@ const ProductCard = ({ ProductFilter }) => {
                         {isLoading ? (
                           <SkeletonLoader />
                         ) : (
-                          <Suspense fallback={<div>Loading....</div>}>
+                          <Suspense fallback={<ImageSkeletonLoader />}>
                             <LazyImg
                               src={getStrapiMedia(elem.attributes.image)}
                               width={200}
