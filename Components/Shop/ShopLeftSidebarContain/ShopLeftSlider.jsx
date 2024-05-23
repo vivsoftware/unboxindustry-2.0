@@ -10,7 +10,7 @@ const ShopLeftSlider = ({products}) => {
   const secondNumber = firstNumber + 3;
   const thirdnumber = Math.floor(Math.random() * 100) +1;
   const fourthnumber = thirdnumber +3;
-  
+  console.log("zsxzxzxzxz", products)
   return (
     <div className='most-popular'>
       <div className='title title-2 text-lg-start'>

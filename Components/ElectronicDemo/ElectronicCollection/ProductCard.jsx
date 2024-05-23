@@ -142,12 +142,9 @@ const ProductCard = ({ ProductFilter }) => {
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
-    return () => unsubscribe();
   }, []);
 
-  const { symbol, currencyValue } = useSelector(
-    (state) => state.CurrencyReducer
-  );
+  const { symbol, currencyValue } = useSelector((state) => state.CurrencyReducer);
   let i = 0;
   const numberWithCommas = (x) => {
     return x.toLocaleString("en-IN");
@@ -155,26 +152,21 @@ const ProductCard = ({ ProductFilter }) => {
 
   const formatPrice = (price) => {
     return `${numberWithCommas(price)}`;
-  };
-
-  if (!Array.isArray(ProductFilter)) {
-    console.error("ProductFilter is not an array");
-    return null;
   }
 
   return (
     <div className={`product-wrapper slide-6`}>
       <Slider {...ElectronicProductSlider}>
         {ProductFilter?.map((elem, j) => {
-          if (elem.attributes.name) {
+          // if (elem.attributes?.dealsoftheday?.data?.attributes?.name === 'Deals' && i < 12) {
+            if (elem.attributes.name) {
+
             i++;
             return (
               <Fragment key={j}>
-                <div className="product-box">
-                  <div className="img-wrapper">
-                    <Link
-                      href={`/product/${elem.attributes.product_id}-${elem.attributes.products.data[0].attributes.product_slug}`}
-                    >
+                <div className='product-box'>
+                  <div className='img-wrapper'>
+                    <Link href={`/product/${elem.attributes.product_id}-${elem.attributes.products.data[0].attributes.product_slug}`}>
                       <div className={`front`}>
                         {isLoading ? (
                           <SkeletonLoader />
@@ -191,33 +183,31 @@ const ProductCard = ({ ProductFilter }) => {
                         )}
                       </div>
                     </Link>
+{/* 
+                    <div className='cart-wrap'>
+                      <ul>
+                        <AddToCartProduct elem={elem} />
+                        <ModelViewProduct elem={elem} />
+                        <CompareProducts elem={elem} />
+                        <AddToWishList elem={elem} />
+                      </ul>
+                    </div> */}
                   </div>
-                  <div className="product-details text-center">
+                  <div className='product-details text-center'>
                     {user ? (
-                      <h3 className="theme-color fw-6-1">
+                      <h3 className='theme-color fw-6-1'>
                         {symbol}
-                        {formatPrice(
-                          elem.attributes.products.data[0].attributes
-                            .product_price * currencyValue.toFixed(2)
-                        )}
+                        {formatPrice(elem.attributes.products.data[0].attributes.product_price * currencyValue.toFixed(2))}
                       </h3>
                     ) : (
-                      <Link legacyBehavior href="/login">
-                        <h3
-                          className="price-detail"
-                          style={{ color: "#FF8400" }}
-                        >
+                      <Link legacyBehavior href='/login'>
+                        <h3 className='price-detail' style={{ color: '#FF8400' }}>
                           Please Login for Price
                         </h3>
                       </Link>
                     )}
-                    <Link
-                      href={`/product/${elem.id}-${elem.attributes.product_slug}`}
-                      className="font-default fw-6-1"
-                    >
-                      <h5>
-                        {elem.attributes.products.data[0].attributes.product_name}
-                      </h5>
+                    <Link href={`/product/${elem.id}-${elem.attributes.product_slug}`} className='font-default fw-6-1'>
+                      <h5>{elem.attributes.products.data[0].attributes.product_name}</h5>
                     </Link>
                   </div>
                 </div>
@@ -232,10 +222,7 @@ const ProductCard = ({ ProductFilter }) => {
   );
 };
 
-ProductCard.propTypes = {
-  ProductFilter: PropTypes.arrayOf(PropTypes.object),
-};
-
 export default ProductCard;
+
 
 

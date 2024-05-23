@@ -1,16 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Row } from "reactstrap";
 import TopHeaderCurrency from "./TopHeaderCurrency";
 
 import Image from "next/image";
-import PrimarySearchAppBar from "../../Components/Element/searchbar";
-import WishList from "./WishList";
-import AdminUser from "./AdminUser";
-import ItemCart from "./ItemCart";
 import Link from "next/link";
-import Compare from "./Compare";
-import { TfiMenuAlt } from "react-icons/tfi";
+import PrimarySearchAppBar from "../../Components/Element/searchbar";
 import { auth } from "../../Config/firebase";
+import AdminUser from "./AdminUser";
+import Compare from "./Compare";
+import ItemCart from "./ItemCart";
+import WishList from "./WishList";
 
 const TopHeaderBar = ({ brands, categories, industries }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -189,7 +188,9 @@ const TopHeaderBar = ({ brands, categories, industries }) => {
                 ) : (
                   <li>
                     <Link href="/login" className="mobile-currency">
-                      <AdminUser />
+                      <AdminUser/>
+                      <h3 style={{paddingTop: "-1px", paddingLeft: "6px"}}>Login Now</h3> 
+
                     </Link>
                   </li>
                 )}

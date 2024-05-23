@@ -109,7 +109,7 @@ const NavBar = ({ brands, categories, industries }) => {
                                 </NavDropdown.Item>
                               </Link> */}
 
-                              {categories?.slice(0, 6).map((category) => (
+                              {categories?.slice(0, 5).map((category) => (
                                 <Link
                                   href={`/category/${category.id}-${category.attributes.category_slug}`}
                                   key={category.id}
@@ -123,7 +123,21 @@ const NavBar = ({ brands, categories, industries }) => {
                               ))}
                             </div>
                             <div className="column">
-                              {categories?.slice(6, 13).map((category) => (
+                              {categories?.slice(6, 11).map((category) => (
+                                <Link
+                                  href={`/category/${category.id}-${category.attributes.category_slug}`}
+                                  key={category.id}
+                                >
+                                  <NavDropdown.Item
+                                    href={`/category/${category.id}-${category.attributes.category_slug}`}
+                                  >
+                                    {category.attributes.category_name}
+                                  </NavDropdown.Item>
+                                </Link>
+                              ))}
+                            </div>
+                            <div className="column">
+                              {categories?.slice(12, 17).map((category) => (
                                 <Link
                                   href={`/category/${category.id}-${category.attributes.category_slug}`}
                                   key={category.id}

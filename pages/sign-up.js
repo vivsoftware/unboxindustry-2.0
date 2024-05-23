@@ -1,16 +1,14 @@
-
-import Head from 'next/head';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import PhoneInput from 'react-phone-number-input';
-import { signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
-import { auth } from '../Config/firebase';
-import Layout4 from '../Layout/Layout4';
-import Img from '../Components/Element/Images';
-import Link from 'next/link';
-import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import PhoneInput from 'react-phone-number-input';
+import Img from '../Components/Element/Images';
+import { auth } from '../Config/firebase';
 import LoginloaderModle from '../Layout/Element/Loginloadermodle';
+import Layout4 from '../Layout/Layout4';
 
 const Register = () => {
   const [timer, setTimer] = useState(20); // Initial timer value in seconds
@@ -181,14 +179,14 @@ const Register = () => {
                           {errorMsg ? (
                             <a style={{ color: 'red' }} onClick={resendOTP}>Invalid OTP</a>
                           ) : (
-                            <span style={{ color: 'red' }} onClick={resendOTP}>Resend OTP</span>
+                            <button style={{ color: 'red', paddingTop: '4px' ,marginTop: '-10px', borderColor: 'white'}} onClick={resendOTP}>Resend OTP</button>
                           )}
                         </span>
                       )}
                        {isProcessing ? (
                           <LinearProgress className="custom-progress-bar"/> // Display processing bar
                         ) : (
-                          <button type="submit" className="btn login_btn" onClick={verifyOTP}>Sign Up</button>
+                          <button type="submit" className="btn login_btn" style={{marginTop: "10px"}} onClick={verifyOTP}>Sign Up</button>
                         )}
                       {/* <button type="submit" className="btn login_btn" onClick={verifyOTP}>
                         Sign Up
@@ -212,7 +210,7 @@ const Register = () => {
                 <p>
                   We connect millions of buyers and sellers around the world, empowering people & creating economic opportunity for all.
                 </p>
-                <Img src="/login-background.png"  alt="unboxbackground"/>
+                <Img src="login-background.png" alt="unboxbackground" className='logoDiv' />
               </div>
             </div>
           </div>

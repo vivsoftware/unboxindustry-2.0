@@ -1,16 +1,15 @@
 import React from 'react';
 import { Col } from 'reactstrap';
-import LeftCategory from './LeftCategory';
 import LeftPopularCard from './LeftPopularCard';
-import LeftSearch from './LeftSearch';
 
-const LeftSidebar = () => {
+const LeftSidebar = ({products,categories}) => {
   return (
     <Col lg='3' md='4'>
       <div className='left-side'>
-        <LeftSearch />
-        <LeftPopularCard />
-        <LeftCategory />
+        {/* <LeftSearch /> */}
+
+        <LeftPopularCard categories={categories} products={products} />
+        {/* <LeftCategory /> */}
       </div>
     </Col>
   );
