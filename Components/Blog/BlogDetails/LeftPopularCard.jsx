@@ -62,7 +62,7 @@ const settings = {
               className="main-sliderImage14"
               alt='product'
             />
-            <p className='description17'>{url.description}</p>
+            <p className='description170'>{url.description}</p>
           
         </Carousel.Item>
       ))}
@@ -70,8 +70,8 @@ const settings = {
     
 
  
-
-<Slider {...settings} className='formobile'>
+<div className='slider-fixedmobile'>
+<Slider {...settings} className='formobile sticky-slider '>
   <div>
     <Image 
               src={"https://strapi.unboxindustry.com/uploads/UNITRE_3_removebg_preview_ef9d6cc5ce.png"}
@@ -164,6 +164,7 @@ const settings = {
             />
     </div>
 </Slider>
+</div>
 
 
 
