@@ -217,6 +217,7 @@ const NavBar = ({ brands, categories, industries }) => {
                         <div className="column">
                           <Link href={`/brands`}>
                             <NavDropdown.Item href={`/brands`}>
+                              <br />
                               All Brands
                             </NavDropdown.Item>
                           </Link>

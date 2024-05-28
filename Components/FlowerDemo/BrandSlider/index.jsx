@@ -12,10 +12,11 @@ import SkeletonLoader from '../../Element/SkeletonLoader';
 const LazyImg = lazy(() => import('next/image'));
 const Brand = () => {
     const [brandData, setbrandData] = useState([]);
-
-
-
     const [isLoading, setIsLoading] = useState(true);
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+      };
     useEffect(() => {
   
       setTimeout(() => {
@@ -23,14 +24,15 @@ const Brand = () => {
       }, 2000);
     }, []);
 
-    
     useEffect(() => {
-          fetchAPI(`/brands`,{
-            populate: '*',
-          }).then((res)=>{
-            setbrandData(res.data);
-          });
-      }, []);
+         // Fetching brands in optimized way
+    fetch("https://strapi.unboxindustry.com/api/brands?populate[0]=brand_image", requestOptions)
+    .then((response) => response.json())
+    .then((result) => setbrandData(result.data))
+    .catch((error) => console.error("Error fetching brands:", error));
+    },[])
+
+
     return (
         <section className="section-b-space">
             <Container className='home-page'>

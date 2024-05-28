@@ -282,7 +282,10 @@ const TopHeaderBar = ({ brands, categories, industries }) => {
                         Brands
                         {isBrandsMenuOpen && (
                           <ul style={styles.brandsMenuList}>
-                            <li><Link href="/brands">All Brands</Link></li>
+                            
+                            <li ><Link href="/brands">All Brands</Link></li>
+                            
+
                             {brands && brands.map((brand) => (
                               <li
                                 key={brand.id}
