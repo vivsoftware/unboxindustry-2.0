@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Accordion, UncontrolledAccordion } from 'reactstrap';
 import BrandFilterDropdown from './BrandFilterDropdown';
 import PriceRange from './PriceRange';
-import CategoryFilter from './CategoryFilter';
 
 
 const FilterOptions = ({ productData , products}) => {
@@ -19,7 +18,7 @@ const FilterOptions = ({ productData , products}) => {
       <UncontrolledAccordion defaultOpen={['1', '2', '3', '4', '5']} stayOpen>
         <BrandFilterDropdown productData={productData} products={products}/>
         <PriceRange products={products}/>
-        <CategoryFilter productData={productData} products={products}/>
+        {/* <CategoryFilter productData={productData} products={products}/> */}
       </UncontrolledAccordion>
     </Accordion>
   );

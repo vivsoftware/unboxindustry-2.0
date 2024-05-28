@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
+import { React, useEffect, useRef, useState } from 'react';
 import LeftSidebar from '../../Components/Blog/BlogDetails/LeftSidebar';
 import { CommonPath } from '../../Components/Constant';
 import BreadCrumb from '../../Components/Element/BreadCrumb';
@@ -11,6 +11,7 @@ import Layout4 from '../../Layout/Layout4';
 import { fetchAPI } from '../../Utils/api';
 import { getStrapiMedia } from '../../Utils/media';
 import Enquire from '../layout/Enquire';
+
 
 const Blogd = (props) => {
   const router = useRouter();
@@ -58,6 +59,8 @@ const Blogd = (props) => {
   useEffect(() => {
     setCatid(categories.data[0].id);
 
+
+  
     if (data.attributes.banner_image) {
       setBackground(`url(${getStrapiMedia(data.attributes.banner_image)})`);
     }
@@ -65,124 +68,151 @@ const Blogd = (props) => {
 
   const { metaTitle, metaDescription, metaImage, keywords, canonicalURL } = data.attributes.SEO || {};
 
-  const descriptions = [Description1, Description2, Description3, Description4, Description5, Description6, Description7];
-  const images = [Description1_image, Description2_image, Description3_image, Description4_image, Description5_image, Description6_image, Description7_image];
+  const descriptions = [Description1, Description2, Description3, Description4, Description5, Description6, Description7];
+  const images = [Description1_image, Description2_image, Description3_image, Description4_image, Description5_image, Description6_image, Description7_image];
+ 
 
-  useEffect(() => {
+  useEffect(() => {
+    const handleScroll = () => {
+      const sidebar = sidebarRef.current;
+      const descriptionColumn = descriptionColumnRef.current;
+      const endForm = endFormRef.current;
+
+      if (!sidebar || !descriptionColumn || !endForm) return;
+
+      const descriptionItems = descriptionColumn.querySelectorAll('.description-item');
+      if (descriptionItems.length === 0) return;
+
+      const firstDescriptionItem = descriptionItems[0];
+      const lastDescriptionItem = descriptionItems[descriptionItems.length - 1];
+
+      const sidebarRect = sidebar.getBoundingClientRect();
+      const firstItemRect = firstDescriptionItem.getBoundingClientRect();
+      const lastItemRect = lastDescriptionItem.getBoundingClientRect();
+      const endFormRect = endForm.getBoundingClientRect();
+
+      const windowHeight = window.innerHeight;
+
+      if (firstItemRect.top < 0 && endFormRect.bottom > sidebarRect.height) {
+        sidebar.classList.add('sidebar-fixed');
+      } 
+      else if (lastItemRect.bottom > 0 && endFormRect.bottom < sidebarRect.height) {
+        sidebar.classList.add('sidebar-fixed');
+      }
+      
+      else {
+        sidebar.classList.remove('sidebar-fixed');
+      }
+
+      if (lastItemRect.bottom <= windowHeight) {
+        sidebar.style.top = `${windowHeight - lastItemRect.bottom}px`;
+      } else {
+        sidebar.style.top = '0px';
+      }
+
+      if (endFormRect.top < windowHeight) {
+        sidebar.classList.remove('sidebar-fixed');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
 
+  // const fetchData = async () => {
 
+  //   setLoading(true);
+  //   try {
+  //     const res = await fetchAPI(`/categories/${catid}`, {
+  //       populate: "*",
+  //       pagination: {
+  //         start: 0,
+  //         limit: -1, // Fetch all items (or set a specific limit if needed)
+  //       },
+  //     });
+  //     if (res) {
+  //       setproductdata(res.data);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching product data:', error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-    fetchAPI(`/categories/${catid}`,{
-      populate: '*',
-        // pagination: {
-        //   start: 0,  //offset
-        //   limit: 10,
-        // },
-    
-  }).then((res)=>{
+  useEffect(() => {
+
+    fetchAPI(`/categories/${catid}`, {
+      populate: {
+        products: {
+          populate: '*',
+        }
+      }
+    }).then((res) => {
       setproductdata(res.data.attributes.products)
-  })
+    })
 
-    const handleScroll = () => {
-      const sidebar = sidebarRef.current;
-      const descriptionColumn = descriptionColumnRef.current;
-      const endForm = endFormRef.current;
 
-      if (!sidebar || !descriptionColumn || !endForm) return;
+    // fetchData();
+  }, [catid]);
 
-      const descriptionItems = descriptionColumn.querySelectorAll('.description-item');
-      if (descriptionItems.length === 0) return;
-
-      const firstDescriptionItem = descriptionItems[0];
-      const lastDescriptionItem = descriptionItems[descriptionItems.length - 1];
-
-      const sidebarRect = sidebar.getBoundingClientRect();
-      const firstItemRect = firstDescriptionItem.getBoundingClientRect();
-      const lastItemRect = lastDescriptionItem.getBoundingClientRect();
-      const endFormRect = endForm.getBoundingClientRect();
-
-      const windowHeight = window.innerHeight;
-
-      if (firstItemRect.top < 0 && endFormRect.bottom > sidebarRect.height) {
-        sidebar.classList.add('sidebar-fixed');
-      } 
-      else if (lastItemRect.bottom > 0 && endFormRect.bottom < sidebarRect.height) {
-        sidebar.classList.add('sidebar-fixed');
-      }
-      
-      else {
-        sidebar.classList.remove('sidebar-fixed');
-      }
-
-      if (lastItemRect.bottom <= windowHeight) {
-        sidebar.style.top = `${windowHeight - lastItemRect.bottom}px`;
-      } else {
-        sidebar.style.top = '0px';
-      }
-
-      if (endFormRect.top < windowHeight) {
-        sidebar.classList.remove('sidebar-fixed');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-console.log("catyyy", data);
 console.log("catyyy2", productdata);
- // Get the page from the query parameters
+console.log("catyyy", catid);
 
-  return (
-    <Layout4>
-      <Head>
-        <title>{title}</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' type='image/x-icon' href={`${CommonPath}/favicon/2.png`} alt="unboxLogo" />
-        <meta name="description" content={metaDescription || ''} />
-        <meta property="title" content={metaTitle || ''} />
-        <meta property="keywords" content={keywords || ''} />
-        <meta property="image" content={metaImage || ''} />
-        <meta property="canonicalURL" content={canonicalURL || ''} />
-      </Head>
-      <BreadCrumb parent={''} title={''} />
+  return (
+    <Layout4>
+      <Head>
+        <title>{title}</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <link rel='icon' type='image/x-icon' href={`${CommonPath}/favicon/2.png`} alt="unboxLogo" />
+        <meta name="description" content={metaDescription || ''} />
+        <meta property="title" content={metaTitle || ''} />
+        <meta property="keywords" content={keywords || ''} />
+        <meta property="image" content={metaImage || ''} />
+        <meta property="canonicalURL" content={canonicalURL || ''} />
+      </Head>
+      <BreadCrumb parent={''} title={''} />
 
-      <div className='blog-page' id='blogDefault'>
-        <div className='blogg-page' id="blogDefault" style={{ backgroundImage: `url("${getStrapiMedia(banner_image)}")` }}>
-        </div>
-      </div>
+      <div className='blog-page' id='blogDefault'>
+        <div className='blogg-page' id="blogDefault" style={{ backgroundImage: `url("${getStrapiMedia(banner_image)}")` }}>
+        </div>
+      </div>
 
-      <div className='blog-page1'>
-        <h2 className='blog-heading2'>{title}<br /></h2>
-        <div className='blog-page2'>
-          <h3 className='blog-heading3'>{testing1}</h3>
-        </div>
-        <Img className='blog-image' src={getStrapiMedia(additional_image)} alt={title} />
-      </div>
+      <div className='blog-page1'>
+        <h2 className='blog-heading2'>{title}<br /></h2>
+        <div className='blog-page2'>
+          <h3 className='blog-heading3'>{testing1}</h3>
+        </div>
+        <Img className='blog-image' src={getStrapiMedia(additional_image)} alt={title} />
+      </div>
 
-      <div className='grid-container'>
-        <div className='description-column' ref={descriptionColumnRef}>
-          {descriptions.map((description, index) => (
-            <div className='description-item' key={index}>
-              <span className='description-span' dangerouslySetInnerHTML={{ __html: description }}></span>
-              <Img className='image-class' src={getStrapiMedia(images[index])} alt={title} />
-            </div>
-          ))}
-        </div>
+      <div className='grid-container'>
+        <div className='description-column' ref={descriptionColumnRef}>
+          {descriptions.map((description, index) => (
+            <div className='description-item' key={index}>
+              <span className='description-span' dangerouslySetInnerHTML={{ __html: description }}></span>
+              <Img className='image-class' src={getStrapiMedia(images[index])} alt={title} />
+            </div>
+          ))}
+        </div>
 
-        <div className='sidebar-container' ref={sidebarRef}>
-          <LeftSidebar products={productdata} categories={categories} endFormRef={endFormRef} />
-        </div>
-      </div>
 
-      <div className='endfrom' ref={endFormRef}>
-        <Enquire />
-      </div>
-      <FlowerSubscribe />
-    </Layout4>
-  );
+
+        <div className='sidebar-container' id="sidebar-mobile" ref={sidebarRef}>
+          <LeftSidebar products={productdata} categories={categories} endFormRef={endFormRef} />
+        </div>
+      </div>
+
+      <div className='endfrom' ref={endFormRef}>
+        <Enquire />
+      </div>
+      <FlowerSubscribe />
+      
+    </Layout4>
+  );
 };
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -192,12 +222,10 @@ export async function getServerSideProps({ query, locale }) {
   // const page = parseInt(query.page) || 0;
   // const start = page * 20;
 
-  // Fetch all blog data
   const blogData = await fetchAPI('/blogs', {
     populate: '*',
   });
 
-  // Fetch category data based on the provided category ID
   const catid = query.catid;
   // const categoryData = await fetchAPI(`/categories/${catid}`, {
   //   populate: {

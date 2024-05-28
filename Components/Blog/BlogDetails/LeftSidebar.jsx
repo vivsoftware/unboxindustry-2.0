@@ -8,7 +8,7 @@ const LeftSidebar = ({products,categories}) => {
       <div className='left-side'>
         {/* <LeftSearch /> */}
 
-        <LeftPopularCard categories={categories} products={products}/>
+        <LeftPopularCard categories={categories} products={products} />
         {/* <LeftCategory /> */}
       </div>
     </Col>
