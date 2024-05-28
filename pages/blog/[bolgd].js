@@ -95,11 +95,11 @@ const Blogd = (props) => {
 
       if (firstItemRect.top < 0 && endFormRect.bottom > sidebarRect.height) {
         sidebar.classList.add('sidebar-fixed');
-      } 
+      }
       else if (lastItemRect.bottom > 0 && endFormRect.bottom < sidebarRect.height) {
         sidebar.classList.add('sidebar-fixed');
       }
-      
+
       else {
         sidebar.classList.remove('sidebar-fixed');
       }
@@ -210,7 +210,7 @@ console.log("catyyy", catid);
         <Enquire />
       </div>
       <FlowerSubscribe />
-      
+
     </Layout4>
   );
 };

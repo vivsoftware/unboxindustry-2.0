@@ -1,12 +1,15 @@
-import Link from 'next/link';
-import React, { Fragment, Suspense, lazy, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import Slider from 'react-slick';
-import { auth } from '../../../Config/firebase';
-import { ElectronicProductSlider } from '../../../Data/SliderSettingsData';
-import { getStrapiMedia } from '../../../Utils/media';
-import SkeletonLoader from '../../Element/SkeletonLoader';
-const LazyImg = lazy(() => import('next/image'));
+import React, { lazy, Fragment, Suspense, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import Slider from "react-slick";
+import { auth } from "../../../Config/firebase";
+import { ElectronicProductSlider } from "../../../Data/SliderSettingsData";
+import { getStrapiMedia } from "../../../Utils/media";
+import SkeletonLoader from "../../Element/SkeletonLoader";
+import PropTypes from "prop-types";
+import Link from "next/link"; // Import Link using ES6 import syntax
+import ImageSkeletonLoader from "../../Element/SkeletonLoaderCat";
+
+const LazyImg = lazy(() => import("next/image"));
 
 const ProductCard = ({ ProductFilter }) => {
   const [user, setUser] = useState(null);
@@ -50,15 +53,14 @@ const ProductCard = ({ ProductFilter }) => {
                         {isLoading ? (
                           <SkeletonLoader />
                         ) : (
-                          <Suspense fallback={<div>Loading....</div>}>
-
-                          <LazyImg
-                            src={getStrapiMedia(elem.attributes.image)}
-                            width={200}
-                            height={200}
-                            className='bg-img'
-                            alt={elem.attributes.product_name}
-                          />
+                          <Suspense fallback={<ImageSkeletonLoader />}>
+                            <LazyImg
+                              src={getStrapiMedia(elem.attributes.image)}
+                              width={200}
+                              height={200}
+                              className="bg-img"
+                              alt={elem.attributes.product_name}
+                            />
                           </Suspense>
                         )}
                       </div>

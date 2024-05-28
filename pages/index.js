@@ -67,68 +67,87 @@ function Home(props) {
   const [cobot, setcobot] = useState(true);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try{
+        // featching homepage data
+        const homeData = await fetchAPI('/homepage', {populate: '*'});
+        setData(homeData.data.attributes);
 
-    document.documentElement.style.setProperty('--theme-color', '#0163d2');
-    fetchAPI(`/homepage`, {
-      populate: '*',
-    }).then((res) => {
-      setData(res.data.attributes);
+        //feacthing deals of the day and and categories
 
-    });
+        // need to change the featching for the categories
+        // const [dealsData, categoryData] = await Promise.all([
+        //   fetchAPI('/dealsofthedays', {populate: '*', pagination: {limit: -1}}),
+        //    fetchAPI('/categories', {populate: '*', pagination: {limit: -1}})
 
+        //   // fetch("https://strapi.unboxindustry.com/api/categories?populate[0]=category_icon", requestOptions)
+        //   // .then((response) => response.json())
+        //   // .then((result) => setCategory(result.data))
+        //   // .catch((error) => console.error("Error fetching brands:", error))
+        // ]) ;
+        // setdealsoftheday(dealsData.data);
+        // setCategory(categoryData.data);
 
+        const dealsDataPromise = fetchAPI('/dealsofthedays', {populate: '*', pagination: {limit: -1}});
 
+        const categoryDataPromise = fetch("https://strapi.unboxindustry.com/api/categories?populate[0]=category_icon", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-    fetchAPI(`/dealsofthedays`, {
-      populate: '*',
-      pagination: {
-        limit: -1,
-      },
-    }).then((res) => {
-      setdealsoftheday(res.data);
-    });
+        const [dealsData, categoryResponse] = await Promise.all([dealsDataPromise, categoryDataPromise]);
+        const categoryData = await categoryResponse.json();
 
-
-
-    fetchAPI(`/categories`, {
-      populate: '*',
-      pagination: {
-        limit: -1,
-      },
-    }).then((res) => {
-      setCategory(res.data);
-    });
-
-
-  }, []);
+        setdealsoftheday(dealsData.data);
+        setCategory(categoryData.data);
+      
 
 
-  useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      setUser(user);
-      if (user && user.email) {
-        try {
-          const response = await axios.get(`${spring_boot_url}api/users/email?email=${user.email}`);
-          setuserDe(response.data);
-          // startTimer(); // Start the timer
-        } catch (error) {
-          console.error(error);
-        }
-      } else if (user && user.phoneNumber) {
-        let phoneNumberd = user.phoneNumber;
-        phoneNumberd = phoneNumberd.replace(/\+/g, "");
-        axios.get(`${spring_boot_url}api/users/phone?phoneNumber=${phoneNumberd}`)
-          .then(resp => {
-            console.log(resp.data.json);
-            localStorage.setItem("data", JSON.stringify(resp.data));
-            setuserDe(resp.data);
-            if (resp.data) {
+        //checking User authentication
+        auth.onAuthStateChanged(async (user) => {
+          setUser(user);
+          if (user && user.email) {
+            try {
+              const response = await axios.get(`${spring_boot_url}api/users/email?email=${user.email}`);
+              setuserDe(response.data);
+              // startTimer(); // Start the timer
+
+              //checking database connection
+                connection.on('connect', () => {
+                  console.log("connected to database");
+                });
+                connection.on('error', () => {
+                  console.log("error in connection database", err);
+                })
+            } catch (error) {
+              console.error(error);
             }
-          });
-      }
-    });
-  }, []);
+          } else if (user && user.phoneNumber) {
+            let phoneNumberd = user.phoneNumber;
+            phoneNumberd = phoneNumberd.replace(/\+/g, "");
+            axios.get(`${spring_boot_url}api/users/phone?phoneNumber=${phoneNumberd}`)
+              .then(resp => {
+                console.log(resp.data.json);
+                localStorage.setItem("data", JSON.stringify(resp.data));
+                setuserDe(resp.data);
+                if (resp.data) {
+                }
+              });
+          }
+        });
 
+        //setting is loading false
+        setIsLoading(false);
+      }catch (error){
+        console.log("error loc- index.js", error);
+      }
+
+    }
+
+    fetchData();
+  },[])
 
 
 
@@ -197,7 +216,7 @@ function Home(props) {
           {!data ? (
             <SkeletonLoader />
           ) : (
-            <ElectronicHomeSlider mainSlider={data?.hero_slider} />
+             <ElectronicHomeSlider mainSlider={data?.hero_slider} />
           )}
         </div>
         <div className='d-block d-xl-none d-md-none d-sm-block slider-container ms-2 me-2'>
@@ -229,6 +248,7 @@ function Home(props) {
 
         ) : (
           <SkeletonLoader />
+          
 
         )}
         {!(data) ? (

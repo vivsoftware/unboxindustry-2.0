@@ -2,7 +2,7 @@ export const PopularPost = [
   {
     id: 1,
     no: '01',
-    description: 'But I must explain to you how all this mistaken idea of denouncing.',
+    description: 'But I must explain to you how.',
     title: 'The Grey Times',
     in: 'in',
     title1: 'News',
@@ -13,7 +13,7 @@ export const PopularPost = [
   {
     id: 2,
     no: '02',
-    description: 'It is a long established fact that a reader will be distracted.',
+    description: 'It is a long established fact .',
     title: 'The Polar Paper',
     in: 'in',
     title1: 'News',
@@ -25,7 +25,7 @@ export const PopularPost = [
   {
     id: 3,
     no: '03',
-    description: 'There are many variations of passages of Lorem Ipsum available.',
+    description: 'There are many variations of .',
     title: 'Mary Robinson',
     in: 'in',
     title1: 'News',
@@ -37,7 +37,7 @@ export const PopularPost = [
   {
     id: 4,
     no: '04',
-    description: 'All the Lorem Ipsum generators on the Internet tend to repeat.',
+    description: 'All the Lorem Ipsum generators.',
     title: 'King Monster',
     in: 'in',
     title1: 'News',

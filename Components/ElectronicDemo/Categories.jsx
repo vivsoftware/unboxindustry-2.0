@@ -3,6 +3,8 @@ import Link from 'next/link';
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { getStrapiMedia } from '../../Utils/media';
 import SkeletonLoader from '../Element/SkeletonLoader';
+import ImageSkeletonLoader from "../Element/SkeletonLoaderCat";
+
 const LazyImg = lazy(() => import('next/image'));
 
 const Categories = ({ category }) => {
@@ -33,7 +35,9 @@ const Categories = ({ category }) => {
                   {isLoading ? (
                     <SkeletonLoader />
                   ) : (
-                    <Suspense fallback={<div>Loading....</div>}>
+                    <Suspense fallback={<ImageSkeletonLoader />}>
+
+                      {/* add skeletion loader for boxes */}
 
                     <LazyImg
                       src={getStrapiMedia(categoryItem.attributes.category_icon)}

@@ -5,6 +5,8 @@ export function getStrapiMedia(media) {
     return media.data.map((data) => {
       const { url } = data?.attributes
       const imageUrl = url.startsWith("/") ? getStrapiURL(url) : url
+      console.log("urllllllllllllllllll", url);
+      console.log("hihihihihi", imageUrl);
       return imageUrl
     })
   } else{
