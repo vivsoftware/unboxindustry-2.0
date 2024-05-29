@@ -215,7 +215,7 @@ const LeftPopularCard = ({ products, categories }) => {
         prevIcon={null}
         nextIcon={null}
       >
-        {PopularPost.slice(4, 8).map((url, index) => (
+        {PopularPost?.slice(4, 8).map((url, index) => (
           <Carousel.Item key={index} interval={1000} className="custom-carousel-item">
             <Link href={`/product/${url.id}-${url.product_slug}`}>
 
@@ -242,7 +242,7 @@ const LeftPopularCard = ({ products, categories }) => {
         nextIcon={null}
       >
         
-        {PopularPost.slice(6, 10).map((url, index) => (
+        {PopularPost?.slice(6, 10).map((url, index) => (
           <Carousel.Item key={index} interval={1000} className="custom-carousel-item">
             <Link href={`/product/${url.id}-${url.product_slug}`}>
               <Img
@@ -265,7 +265,7 @@ const LeftPopularCard = ({ products, categories }) => {
         prevIcon={null}
         nextIcon={null}
       >
-        {PopularPost.slice(8, 12).map((url, index) => (
+        {PopularPost?.slice(8, 12).map((url, index) => (
           <Carousel.Item key={index} interval={1000} className="custom-carousel-item">
             <Link href={`/product/${url.id}-${url.product_slug}`}>
               <Img
@@ -282,7 +282,7 @@ const LeftPopularCard = ({ products, categories }) => {
       </Carousel>
       <Slider {...settings} className='formobile'>
         <div>
-        {PopularPost.slice(6, 10).map((url, index) => (
+        {PopularPost?.slice(6, 10).map((url, index) => (
           <Carousel.Item key={index} interval={1000} className="custom-carousel-item">
             <Link href={`/product/${url.id}-${url.product_slug}`}>
               <Img
