@@ -162,7 +162,7 @@ const Register = () => {
                         type="text"
                         className="form-control mb-2 otp-phone"
                         id="exampleInputOTP"
-                        value={OTP}
+                         value={OTP}
                         onChange={(e) => setOTP(e.target.value)}
                         required
                       />
