@@ -123,20 +123,20 @@ const Register = () => {
         <Head>
           <title>Sign Up - Unbox Industry</title>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <link rel="icon" href="/Box.ico" alt="unboxLogo"/>
+          <link rel="icon" href="/Box.ico" alt="unboxLogo" />
           <link rel="canonical" href="https://www.unboxindustry.com/sign-up" />
         </Head>
-        <LoginloaderModle/>
+        <LoginloaderModle />
         <div className='container mt-5 mb-5'>
           <div className='card login-page'>
             <div className='row'>
               <div className='col-md-6 col-sm-12 login-card'>
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: '20px' }}>
                   <Link href="/login">
-                    <h2 className='fw-bold' style={{fontSize:'25px',color:'black'}}>Login</h2>
+                    <h2 className='fw-bold' style={{ fontSize: '25px', color: 'black' }}>Login</h2>
                   </Link>
                   <Link href="/sign-up">
-                    <h1 className='login-toggle fw-bold' style={{fontSize:'25px',color:'black'}}>SignUp</h1>
+                    <h1 className='login-toggle fw-bold' style={{ fontSize: '25px', color: 'black' }}>SignUp</h1>
                   </Link>
                 </div>
                 <form onSubmit={requestOTP}>
@@ -179,15 +179,25 @@ const Register = () => {
                           {errorMsg ? (
                             <a style={{ color: 'red' }} onClick={resendOTP}>Invalid OTP</a>
                           ) : (
-                            <button style={{ color: 'red', paddingTop: '4px' ,marginTop: '-10px', borderColor: 'white'}} onClick={resendOTP}>Resend OTP</button>
+                            <p></p>
                           )}
                         </span>
                       )}
-                       {isProcessing ? (
-                          <LinearProgress className="custom-progress-bar"/> // Display processing bar
+
+                      <span>
+                        {isProcessing || isTimerActive || errorMsg  ? (
+                          <p></p>
                         ) : (
-                          <button type="submit" className="btn login_btn" style={{marginTop: "10px"}} onClick={verifyOTP}>Sign Up</button>
+                          <button style={{ color: 'red', paddingTop: '4px', marginTop: '-10px', borderColor: 'white' }} onClick={resendOTP}>Resend OTP</button>
+
                         )}
+                      </span>
+
+                      {isProcessing ? (
+                        <LinearProgress className="custom-progress-bar" /> // Display processing bar
+                      ) : (
+                        <button type="submit" className="btn login_btn" style={{ marginTop: "10px" }} onClick={verifyOTP}>Sign Up</button>
+                      )}
                       {/* <button type="submit" className="btn login_btn" onClick={verifyOTP}>
                         Sign Up
                       </button> */}
