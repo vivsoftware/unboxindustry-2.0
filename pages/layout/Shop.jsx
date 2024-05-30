@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Col, Row } from 'reactstrap';
-import PaginationComp from '../../Components/Element/Pagination';
 import AllProducts from '../../Components/Shop/ShopCanvasFilter/AllProducts';
 import SidebarFilter from '../../Components/Shop/ShopLeftSidebarContain/SidebarFilter';
 import useFilter from '../../Utils/useFilter';
@@ -34,7 +33,7 @@ const ShopLeftSidebarContain = ({ productData, listGrid, products, fetchProducts
           <Col lg='9' xs='12' className='ratio_30'>
             {/* <FilterButton customClass={'filter-button mb-3'} productData={productData} products={filterProduct} /> */}
             <AllProducts currentData={currentData} />
-            <PaginationComp dataPerPage={dataPerPage} StoreProductLength={StoreProducts?.length} currentPage={currentPage} paginate={paginate} />
+            {/* <PaginationComp dataPerPage={dataPerPage} StoreProductLength={StoreProducts?.length} currentPage={currentPage} paginate={paginate} /> */}
           </Col>
         </Row>
       </div>

@@ -3309,4 +3309,29 @@ textarea {
     background-size: 200% 100%;
   }
   
+
+  //////////////category page pagination css///////////////////
   
+  .pagination-prev-back:hover {
+    background-color: white;
+    border: 1px solid #FF8400;
+    width: 36px;
+    height: 44px;
+    border-radius: 10px;
+
+}
+
+.currentpage{
+    background-color: white;
+    border: 1px solid #FF8400;
+    width: 36px;
+    height: 44px;
+    padding-top: 14px;
+    margin-top: 16px;
+    padding-left: 10px;
+    border-radius: 10px;
+}
+.paginationmanin{
+    display: flex;
+    margin-right: 10px;
+}
