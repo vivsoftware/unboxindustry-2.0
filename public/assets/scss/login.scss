@@ -3310,13 +3310,15 @@ textarea {
   }
   
 
-  //////////////category page pagination css///////////////////
+ //////////////category page pagination css///////////////////
   
-  .pagination-prev-back:hover {
+.pagination-prev-back:hover {
     background-color: white;
     border: 1px solid #FF8400;
-    width: 36px;
-    height: 44px;
+    // width: 36px;
+    // height: 44px;
+    width: 60px;
+    height: 50px;
     border-radius: 10px;
 
 }
@@ -3324,14 +3326,33 @@ textarea {
 .currentpage{
     background-color: white;
     border: 1px solid #FF8400;
-    width: 36px;
-    height: 44px;
+    // width: 36px;
+    // height: 44px;
+    width: 60px;
+    height: 50px;
     padding-top: 14px;
-    margin-top: 16px;
-    padding-left: 10px;
+    // margin-top: 16px;
+    padding-left: 22px;
     border-radius: 10px;
+    margin-left: 4px;
 }
 .paginationmanin{
     display: flex;
-    margin-right: 10px;
+    // margin-right: 10px;
+    justify-content: center;
+    // margin-left: 50px;
+}
+.pagination-prev-back {
+    width: 60px;
+    height: 50px;
+    
+}
+.btn {
+    width: 60px;
+    height: 50px;
+    margin-left: 4px;
+}
+
+.pagination-main {
+    justify-content: center;
 }
