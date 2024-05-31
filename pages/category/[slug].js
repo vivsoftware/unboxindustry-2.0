@@ -270,15 +270,15 @@ const productByBrands = (props) => {
         {/* Render the 'Prev' button */}
         <button className="btn pagination-prev-back" onClick={backPage} disabled={currentPage === 0}>Prev</button>
         {/* Conditionally render the first page button */}
-        {currentPage !== 0 && <button className="btn" onClick={() => goToPage(0)}>1</button>}
+        {currentPage !== 0 && <button className="btn1" onClick={() => goToPage(0)}>1</button>}
         {/* Conditionally render the second page button if currentPage is greater than 1 */}
-        {currentPage > 1 && <button className="btn" onClick={() => goToPage(1)}>2</button>}
+        {currentPage > 1 && <button className="btn1" onClick={() => goToPage(1)}>2</button>}
         {/* Render the current page number */}
         <p className="currentpage">{currentPage + 1}</p>
         {/* Conditionally render dots if lastPage is greater than 2 */}
         {lastPage > 2 && <span className='ms-1' style={{ paddingTop: "10px" }}>.......</span>}
         {/* Render the last page button */}
-        {lastPage > 2 && <button className="btn" onClick={() => goToPage(lastPage)}>{lastPage + 1}</button>}
+        {lastPage > 2 && <button className="btn1" onClick={() => goToPage(lastPage)}>{lastPage + 1}</button>}
         {/* Render the 'Next' button */}
         <button className="btn pagination-prev-back" onClick={nextPage} disabled={products.length < 20}>Next</button>
       </div>
