@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Col, Row } from 'reactstrap';
 import AllProducts from '../../Components/Shop/ShopCanvasFilter/AllProducts';
-import SidebarFilter from '../../Components/Shop/ShopLeftSidebarContain/SidebarFilter';
+// import SidebarFilter from '../../Components/Shop/ShopLeftSidebarContain/SidebarFilter';
 import useFilter from '../../Utils/useFilter';
 
 const ShopLeftSidebarContain = ({ productData, listGrid, products, fetchProducts, show }) => {
@@ -26,10 +26,10 @@ const ShopLeftSidebarContain = ({ productData, listGrid, products, fetchProducts
   const totalPages = Math.ceil(productData / 20);
   return (
     <section className='section-b-space'>
-      <div className='container-fluid'>
+      <div className='container-fluid' style={{marginLeft: '196px'}}>
         <Row>
           
-          <SidebarFilter productData={productData} products={products} />
+          {/* <SidebarFilter productData={productData} products={products} /> */}
           <Col lg='9' xs='12' className='ratio_30'>
             {/* <FilterButton customClass={'filter-button mb-3'} productData={productData} products={filterProduct} /> */}
             <AllProducts currentData={currentData} />
