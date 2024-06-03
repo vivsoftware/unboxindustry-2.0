@@ -113,7 +113,7 @@ const Register = () => {
 
   useEffect(() => {
     if (auth.currentUser) {
-      router.push('/dashboard'); // Redirect to the dashboard if the user is already logged in
+      router.push('/user_dashboard'); // Redirect to the dashboard if the user is already logged in
     }
   }, [router]);
 

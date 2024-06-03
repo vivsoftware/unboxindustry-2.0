@@ -3359,3 +3359,82 @@ textarea {
 .pagination-main {
     justify-content: center;
 }
+
+
+  //////////skeltonloader css/////////////
+ ///                                   // 
+//////////////////////////////////////// 
+ 
+ 
+
+.skeletonWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .skeleton {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite linear;
+  }
+  
+  .skeleton:nth-child(1) {
+    height: 200px; /* height for the first skeleton item */
+  }
+  
+  .skeleton:nth-child(2) {
+    height: 20px; /* height for the second skeleton item */
+    width: 80%; /* width for the second skeleton item */
+  }
+  
+  .skeleton:nth-child(3) {
+    height: 20px; /* height for the third skeleton item */
+    width: 60%; /* width for the third skeleton item */
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: 200px 0;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .skeletonWrapper {
+      flex-direction: row;
+    }
+  
+    .skeleton:nth-child(1) {
+      height: 100px;
+      flex: 1;
+    }
+  
+    .skeleton:nth-child(2),
+    .skeleton:nth-child(3) {
+      height: 100px;
+      flex: 1;
+    }
+  }
+  
+  @media (min-width: 1400px) {
+    .skeletonWrapper {
+      flex-direction: row;
+    }
+  
+    .skeleton:nth-child(1) {
+      height: 300px;
+      flex: 1;
+    }
+  
+    .skeleton:nth-child(2),
+    .skeleton:nth-child(3) {
+      height: 300px;
+      flex: 1;
+    }
+  }
+  

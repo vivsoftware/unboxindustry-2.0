@@ -1,42 +1,33 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import ProductCard from './Product';
-
 class ProductSlider extends Component {
   constructor(props) {
     super(props);
-    
     this.state = {
       slidesToShow: 4 // Default number of slides
     };
-
     this.handleResize = this.handleResize.bind(this);
   }
-
   componentDidMount() {
     this.handleResize(); // Call it initially
     window.addEventListener('resize', this.handleResize);
   }
-
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
   }
-
   handleResize() {
     const screenWidth = window.innerWidth;
     let slidesToShow = 4;
-
     if (screenWidth <= 576) {
       slidesToShow = 1; // Show 1 slide on mobile
     } else if (screenWidth <= 992) {
       slidesToShow = 2; // Show 2 slides on tablet
     }
-
     this.setState({ slidesToShow });
   }
-
   render() {
     const { bannerData } = this.props;
     const { slidesToShow } = this.state;
@@ -94,9 +85,9 @@ class ProductSlider extends Component {
       ],           
     };
 
-
     return (
       <div >
+
         <Slider {...settings}>
           {bannerData?.map((slide, index) => (
             <div key={index} >

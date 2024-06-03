@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card } from 'reactstrap';
-import ProductNoSideBarContain from '../Products/ProductNoSidebarContain';
 const SkeletonLoader = () => {
   return (
     <Card className='is-loading'>
@@ -13,3 +12,6 @@ const SkeletonLoader = () => {
   );
 };
 export default SkeletonLoader;
+
+
+
