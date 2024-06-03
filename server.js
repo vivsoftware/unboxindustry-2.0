@@ -1,6 +1,7 @@
 const express = require('express');
 const next = require('next');
 const cors = require('cors');
+const compression = require('compression');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -11,6 +12,9 @@ app.prepare().then(() => {
 
   // Enable CORS
   server.use(cors());
+
+  //Enable Compression
+  server.use(compression)
 
   // Handle Next.js requests
   server.all('*', (req, res) => {
