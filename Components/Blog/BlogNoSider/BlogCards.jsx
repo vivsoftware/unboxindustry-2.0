@@ -90,6 +90,7 @@ const BlogCards = ({ BlogDataFilter, start, pageNumber }) => {
                 <Link onClick={() => handleLoad(elem)} href="">
                   {/* <Link onClick={handleLoad=()=>  {elem}} href={`/blog/${elem.id}-${elem.attributes.blog_slug}`}> */}
                   <Img src={getStrapiMedia(elem.attributes.banner)} className='card-img-top' alt={elem.attributes.title} height={100} width={100} />
+                  {/* <Img src={`https://strapi.unboxindustry.com/uploads/41i_YUZFHXOL_AC_UF_1000_1000_QL_80_1_8f242b035c.jpg`} className='card-img-top' alt={elem.attributes.title} height={300} width={1080} /> */}
                 </Link>
                 {/* <div className='col-4'>                               
                 </div>
